@@ -1,0 +1,408 @@
+[Version Actor SW]
+5
+0
+0
+0
+0
+[Modificado]
+1
+1
+0
+[Estructura]
+[Version Estructura]
+3
+[Parametro]
+NULL
+ 
+ 
+[FinParametro]
+[Stack]
+1
+[FinStack]
+[Puertos]
+3
+[Version Puerto]
+0
+LEDMngCtrl
+1
+1
+0
+[Version Grafico Puerto]
+0
+93
+15
+CPLEDMngCtrl
+[Version Puerto]
+0
+DisplaysMngCtrl
+1
+1
+0
+[Version Grafico Puerto]
+0
+93
+72
+CPDisplaysMngCtrl
+[Version Puerto]
+0
+SerialCommand
+0
+1
+1
+[Version Grafico Puerto]
+0
+40
+42
+CPSerialCommand
+[FinPuertos]
+[ActoresComponente]
+0
+[FinActoresComponente]
+[Uniones]
+0
+[FinUniones]
+[NumTimers]
+0
+[FinNumTimers]
+[NumMsgDef]
+10
+[FinNumMsgDef]
+[FinEstructura]
+[Comportamiento]
+[Version Comportamiento]
+3
+0
+[Pools]
+0
+[Modulos]
+0
+[Eventos]
+1
+[Event]
+[Version]
+1
+EvIRQSerialCommand
+External
+[Maquina de Estados]
+[Version Maquina de Estados]
+1
+Top
+NULL
+[Subestados]
+3
+[Version SubEstados]
+3
+I
+;
+;
+;
+;
+;
+0
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+73 73 55 55
+[FinObjetoGrafico]
+SubEstado1
+;
+;
+;
+;
+;
+1
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+143 182 90 60
+[FinObjetoGrafico]
+SubEstado2
+;
+;
+;
+;
+;
+1
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+132 405 97 199
+[FinObjetoGrafico]
+[PuntosEleccion]
+1
+[Version PuntosEleccion]
+2
+Transicion2
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+329 426 35 35
+[FinObjetoGrafico]
+Transicion2
+0
+[Ramas]
+3
+[Version Ramas]
+5
+Rama0
+true
+SubEstado2
+DSubEst
+;
+ 
+ 
+ 
+;
+;
+;
+;
+[GraficoRama]
+[Version GraficoRama]
+0
+346 426 229 419 3
+[FinGraficoRama]
+Rama1
+true
+SubEstado2
+DSubEst
+;
+ 
+ 
+ 
+;
+;
+;
+;
+[GraficoRama]
+[Version GraficoRama]
+0
+336 458 229 508 2
+[FinGraficoRama]
+Rama2
+true
+SubEstado2
+DSubEst
+;
+ 
+ 
+ 
+;
+;
+;
+;
+[GraficoRama]
+[Version GraficoRama]
+0
+346 460 229 589 2
+[FinGraficoRama]
+[Transiciones]
+3
+[Version Transicion]
+5
+Transicion0
+I
+OSubEstI
+SubEstado1
+DSubEst
+;
+[Trigger]
+
+
+true
+ 
+ 
+ 
+;
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+116 120 164 182 0
+[FinGraficoTransicion]
+Transicion1
+SubEstado1
+OSubEst
+SubEstado2
+DSubEst
+;
+[Trigger]
+ 
+ 
+true
+ 
+ 
+ 
+;
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+169 242 170 405 0
+[FinGraficoTransicion]
+Transicion2
+SubEstado2
+OSubEst
+Transicion2
+DPEleccion
+;
+[Trigger]
+ 
+ 
+true
+ 
+ 
+ 
+;
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+229 456 329 448 1
+[FinGraficoTransicion]
+[VariablesConstantes]
+0
+[Metodos]
+0
+[Version Metodos]
+21
+[MaquinasSubEstados]
+1
+SubEstado1
+[Maquina de Estados]
+[Version Maquina de Estados]
+1
+SubEstado1
+Top
+[Subestados]
+2
+[Version SubEstados]
+3
+SubEstado0
+;
+;
+;
+;
+;
+0
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+142 201 90 60
+[FinObjetoGrafico]
+SubEstado1
+;
+;
+;
+;
+;
+0
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+141 415 90 60
+[FinObjetoGrafico]
+[PuntosEleccion]
+0
+[Version PuntosEleccion]
+2
+[Transiciones]
+3
+[Version Transicion]
+5
+Transicion0
+Transicion0
+OPEntrada
+SubEstado0
+DSubEst
+;
+[Trigger]
+
+
+true
+ 
+ 
+ 
+;
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+185 70 186 201 0
+[FinGraficoTransicion]
+Transicion1
+SubEstado0
+OSubEst
+SubEstado1
+DSubEst
+;
+[Trigger]
+ 
+ 
+true
+ 
+ 
+ 
+;
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+194 261 187 415 2
+[FinGraficoTransicion]
+Transicion2
+SubEstado1
+OSubEst
+Transicion1
+DPSalida
+;
+[Trigger]
+ 
+ 
+true
+ 
+ 
+ 
+;
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+198 475 222 698 0
+[FinGraficoTransicion]
+[VariablesConstantes]
+0
+[Metodos]
+0
+[Version Metodos]
+21
+[MaquinasSubEstados]
+0
+[FinMaquinasSubEstados]
+[Fin Maquina de Estados]
+[FinMaquinasSubEstados]
+[Fin Maquina de Estados]
+[FinComportamiento]
