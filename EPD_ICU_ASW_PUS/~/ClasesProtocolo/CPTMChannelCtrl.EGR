@@ -1,0 +1,34 @@
+[Version Protocolo]
+9
+0
+0
+0
+0
+1
+1
+[Version Mensaje]
+1
+[Version Senal]
+0
+STxTM
+[Version Dato]
+1
+CDTMList
+C:\Users\ismael.llamas\Downloads\Models\EPD_ICU_ASW_PUS\
+es.uah.aut.srg.edroom.mclev.data_sai.cdtmlist
+v1
+1
+1
+[Version Mensaje]
+1
+[Version Senal]
+0
+STMQueued
+[Version Dato]
+1
+NULL
+C:\Users\ismael.llamas\Downloads\Models\EPD_ICU_ASW_PUS\
+es.uah.aut.srg.edroom.mclev.data_sai.NULL
+v1
+1
+0

@@ -1,0 +1,39 @@
+[Version Protocolo]
+9
+0
+1
+0
+18
+1
+EDROOMprioVeryHigh
+3
+#ifdef NEXYS_PLATFORM
+EDROOMIRQ18BottomHalfSignal=EDROOMVarIRQ18.HandleIRQ();
+#endif
+1
+1
+0
+3
+#ifndef NEXYS_PLATFORM
+SC_Channel_GetNextTC(&EDROOMVarIRQ18);
+#endif
+1
+0
+10
+0
+1
+1
+[Version Mensaje]
+1
+[Version Senal]
+0
+EDROOMIRQsignal
+[Version Dato]
+1
+CDTCHandler
+C:\Users\ismael.llamas\Downloads\Models\EPD_ICU_ASW_PUS\
+es.uah.aut.srg.edroom.mclev.data_sai.cdtchandler
+v1
+0
+0
+0

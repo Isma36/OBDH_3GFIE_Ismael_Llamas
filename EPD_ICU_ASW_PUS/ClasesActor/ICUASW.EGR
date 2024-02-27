@@ -1,0 +1,297 @@
+[Version Actor SW]
+5
+0
+0
+0
+0
+[Modificado]
+1
+1
+2
+[Estructura]
+[Version Estructura]
+3
+[Parametro]
+NULL
+ 
+ 
+[FinParametro]
+[Stack]
+8
+[FinStack]
+[Puertos]
+1
+[Version Puerto]
+0
+Timer
+0
+1
+1
+[Version Grafico Puerto]
+0
+88
+89
+EDROOMTimingSAP
+[FinPuertos]
+[ActoresComponente]
+2
+[Version Actor Componente]
+2
+TM_ChannelCtrl
+1
+0
+0
+10
+7
+EDROOMprioNormal
+ 
+[Version Grafico Actor Componente]
+0
+11.7188
+65.0924
+78.7109
+86.2423
+CCTM_ChannelCtrl
+[Version Actor Componente]
+2
+EPDManager
+1
+0
+0
+10
+7
+EDROOMprioNormal
+ 
+[Version Grafico Actor Componente]
+0
+22.6562
+11.0883
+75.7812
+29.3634
+CCEPDManager
+[FinActoresComponente]
+[Uniones]
+1
+[Version Union]
+0
+Union
+1
+TMChannelCtrl
+TMChannelCtrl
+EPDManager
+TM_ChannelCtrl
+[FinUniones]
+[NumTimers]
+2
+[FinNumTimers]
+[NumMsgDef]
+10
+[FinNumMsgDef]
+[FinEstructura]
+[Comportamiento]
+[Version Comportamiento]
+3
+0
+[Pools]
+0
+[Modulos]
+5
+[Version Modulo]
+1
+emu_sc_channel_drv
+ 
+v1
+ 
+1
+1
+[Version Modulo]
+1
+icuasw_pus_services_iface
+ 
+v1
+ 
+1
+1
+[Version Modulo]
+1
+sc_channel_drv
+ 
+v1
+ 
+1
+1
+[Version Modulo]
+1
+emu_hw_timecode_drv
+ 
+v1
+ 
+1
+1
+[Version Modulo]
+1
+emu_gss
+ 
+v1
+ 
+1
+1
+[Eventos]
+1
+[Event]
+[Version]
+1
+EvTimerTimer
+Timer
+[Maquina de Estados]
+[Version Maquina de Estados]
+1
+Top
+NULL
+[Subestados]
+2
+[Version SubEstados]
+3
+I
+;
+;
+;
+;
+;
+0
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+73 73 55 55
+[FinObjetoGrafico]
+Ready
+FProgTimer();
+;
+;
+;
+;
+1
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+216 229 171 135
+[FinObjetoGrafico]
+[PuntosEleccion]
+0
+[Version PuntosEleccion]
+2
+[Transiciones]
+2
+[Version Transicion]
+5
+Init
+I
+OSubEstI
+Ready
+DSubEst
+FInit();
+[Trigger]
+EDROOMsl
+EDROOMStart
+true
+ 
+ 
+ 
+;
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+116 121 216 300 0
+[FinGraficoTransicion]
+NextTimeCode
+Ready
+OSubEst
+Ready
+DSubEst
+FEmuPassSecond();
+[Trigger]
+Timer
+EDROOMSignalTimeout
+true
+ 
+ 
+ 
+;
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+233 229 356 229 4
+[FinGraficoTransicion]
+[VariablesConstantes]
+1
+[Version VariYConst]
+0
+VEmuTimeCode
+Pr_Time
+
+Variable
+0
+[Metodos]
+3
+[Version Metodos]
+21
+BasicAction
+FEmuPassSecond()
+0
+0
+0
+0
+1
+ 
+5
+ 
+EmuHwTimeCodePassSecond();
+EmuGSS_PassSecond();
+ 
+	
+BasicAction
+FInit()
+0
+0
+0
+0
+1
+ 
+1
+EmuGSS_PassSecond();
+Inform
+FProgTimer()
+0
+0
+0
+0
+1
+ 
+6
+	 
+	//Timing Service useful methods
+	
+  VEmuTimeCode+=Pr_Time(1,0);
+ 
+  time=VEmuTimeCode;
+[ServiceRequest]
+InformAt
+Timer
+EDROOMSignalTimeout
+ 
+EDROOMprioNormal
+[MaquinasSubEstados]
+0
+[FinMaquinasSubEstados]
+[Fin Maquina de Estados]
+[FinComportamiento]

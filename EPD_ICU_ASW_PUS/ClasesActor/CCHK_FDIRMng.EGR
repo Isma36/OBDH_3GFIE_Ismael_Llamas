@@ -1,0 +1,427 @@
+[Version Actor SW]
+5
+0
+0
+0
+0
+[Modificado]
+1
+1
+0
+[Estructura]
+[Version Estructura]
+3
+[Parametro]
+NULL
+ 
+ 
+[FinParametro]
+[Stack]
+1
+[FinStack]
+[Puertos]
+3
+[Version Puerto]
+0
+HK_FDIR_Timer
+0
+1
+1
+[Version Grafico Puerto]
+0
+66
+19
+EDROOMTimingSAP
+[Version Puerto]
+0
+TMChannelCtrl
+1
+1
+0
+[Version Grafico Puerto]
+0
+43
+93
+CPTMChannelCtrl
+[Version Puerto]
+0
+HK_FDIRCtrl
+0
+1
+0
+[Version Grafico Puerto]
+0
+45
+4
+CPHK_FDIRCtrl
+[FinPuertos]
+[ActoresComponente]
+0
+[FinActoresComponente]
+[Uniones]
+0
+[FinUniones]
+[NumTimers]
+2
+[FinNumTimers]
+[NumMsgDef]
+10
+[FinNumMsgDef]
+[FinEstructura]
+[Comportamiento]
+[Version Comportamiento]
+3
+0
+[Pools]
+2
+[Version PoolDatosMens]
+0
+EDROOMPoolCDTMList
+CDTMList
+10
+[Version PoolDatosMens]
+0
+EDROOMPoolCDRecovAction
+CDRecovAction
+10
+[Modulos]
+2
+[Version Modulo]
+1
+icuasw_pus_services_iface
+ 
+v1
+ 
+1
+1
+[Version Modulo]
+1
+sc_channel_drv_iface
+ 
+v1
+ 
+1
+1
+[Eventos]
+1
+[Event]
+[Version]
+1
+EvTimerHK_FDIR_Timer
+Timer
+[Maquina de Estados]
+[Version Maquina de Estados]
+1
+Top
+NULL
+[Subestados]
+2
+[Version SubEstados]
+3
+I
+;
+;
+;
+;
+;
+0
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+73 73 55 55
+[FinObjetoGrafico]
+Ready
+;
+;
+;
+;
+;
+1
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+214 226 167 204
+[FinObjetoGrafico]
+[PuntosEleccion]
+1
+[Version PuntosEleccion]
+2
+DoHK_FDIR
+1
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+524 295 35 35
+[FinObjetoGrafico]
+DoHK_FDIR
+1
+[Ramas]
+2
+[Version Ramas]
+5
+SendRecAction
+GSendRecAction()
+Ready
+DSubEst
+FGetNextRecAction();
+ 
+ 
+ 
+;
+FSendRecAction();
+;
+;
+[GraficoRama]
+[Version GraficoRama]
+0
+524 318 381 317 3
+[FinGraficoRama]
+NoRecAction
+true
+Ready
+DSubEst
+;
+ 
+ 
+ 
+;
+;
+;
+;
+[GraficoRama]
+[Version GraficoRama]
+0
+532 297 381 236 3
+[FinGraficoRama]
+[Transiciones]
+3
+[Version Transicion]
+5
+Init
+I
+OSubEstI
+Ready
+DSubEst
+FInitHK_FDIR();
+[Trigger]
+EDROOMsl
+EDROOMStart
+true
+ 
+ 
+ 
+;
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+114 121 214 275 0
+[FinGraficoTransicion]
+ExecTC
+Ready
+OSubEst
+Ready
+DSubEst
+;
+[Trigger]
+HK_FDIRCtrl
+SHK_FDIR_TC
+true
+ 
+ 
+ 
+FExecHK_FDIR_TC();
+;
+FTxTMList();
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+214 296 214 388 6
+[FinGraficoTransicion]
+DoHK_FDIR
+Ready
+OSubEst
+DoHK_FDIR
+DPEleccion
+FDoHK_FDIR();
+[Trigger]
+HK_FDIR_Timer
+EDROOMSignalTimeout
+true
+ 
+ 
+ 
+;
+;
+FTxTMList();
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+381 420 541 329 1
+[FinGraficoTransicion]
+[VariablesConstantes]
+3
+[Version VariYConst]
+0
+VCurrentRecAction
+CDRecovAction
+
+Variable
+0
+[Version VariYConst]
+0
+VCurrentTMList
+CDTMList
+
+Variable
+0
+[Version VariYConst]
+0
+VNextTimeout
+Pr_Time
+
+Variable
+0
+[Metodos]
+7
+[Version Metodos]
+21
+Inform
+FDoHK_FDIR()
+0
+0
+0
+0
+1
+ 
+8
+	 
+	//Timing Service useful methods
+ CDEventList eventList;
+ VNextTimeout+=Pr_Time(1,0);
+ time=VNextTimeout;
+ PUSService3::DoHK(VCurrentTMList);
+ PUSService12::DoMonitoring(VCurrentTMList, eventList);
+ PUSService19::QueueEventListRecAct(eventList); 
+[ServiceRequest]
+InformAt
+HK_FDIR_Timer
+EDROOMSignalTimeout
+ 
+EDROOMprioNormal
+MsgDataHandler
+FExecHK_FDIR_TC()
+0
+0
+0
+0
+1
+ 
+5
+	
+		// Data access
+	
+ CDEventList TCExecEventList;
+ PUS_HK_FDIRTC::ExecTC(varSHK_FDIR_TC,VCurrentTMList,TCExecEventList);
+[ServiceRequest]
+Msg->data
+HK_FDIRCtrl
+SHK_FDIR_TC
+CDTCDescriptor
+EDROOMprioVeryHigh
+BasicAction
+FGetNextRecAction()
+0
+0
+0
+0
+1
+ 
+1
+ PUSService19::GetNextRecAction(VCurrentRecAction);
+Inform
+FInitHK_FDIR()
+0
+0
+0
+0
+1
+ 
+6
+	 
+	//Timing Service useful methods
+	 
+  time.GetTime(); // Get current monotonic time
+  time+=Pr_Time(1,0);
+  VNextTimeout=time;
+[ServiceRequest]
+InformAt
+HK_FDIR_Timer
+EDROOMSignalTimeout
+ 
+EDROOMprioNormal
+SendMsg
+FSendRecAction()
+0
+0
+0
+0
+1
+ 
+5
+	
+		// Complete Data 
+	
+	
+*pSRecAction_Data=VCurrentRecAction;   
+[ServiceRequest]
+send
+HK_FDIRCtrl
+SRecAction
+CDRecovAction
+EDROOMprioNormal
+InvokeMsg
+FTxTMList()
+0
+0
+0
+0
+1
+ 
+6
+	
+		// Complete Data 
+	
+	*pSTxTM_Data=VCurrentTMList;
+ 
+	VCurrentTMList.Clear();
+[ServiceRequest]
+invoke
+TMChannelCtrl
+STxTM
+CDTMList
+EDROOMprioVeryHigh
+Guard
+GSendRecAction()
+0
+0
+0
+0
+1
+ 
+1
+return (!PUSService19::IsRecActQueueEmpty());
+[MaquinasSubEstados]
+0
+[FinMaquinasSubEstados]
+[Fin Maquina de Estados]
+[FinComportamiento]

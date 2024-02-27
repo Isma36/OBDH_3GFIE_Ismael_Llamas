@@ -1,0 +1,289 @@
+[Version Actor SW]
+5
+0
+0
+0
+0
+[Modificado]
+1
+1
+0
+[Estructura]
+[Version Estructura]
+3
+[Parametro]
+NULL
+ 
+ 
+[FinParametro]
+[Stack]
+1
+[FinStack]
+[Puertos]
+2
+[Version Puerto]
+0
+RxTC
+0
+1
+1
+[Version Grafico Puerto]
+0
+57
+33
+CPRxTC
+[Version Puerto]
+0
+TMChannelCtrl
+1
+1
+0
+[Version Grafico Puerto]
+0
+11
+93
+CPTMChannelCtrl
+[FinPuertos]
+[ActoresComponente]
+0
+[FinActoresComponente]
+[Uniones]
+0
+[FinUniones]
+[NumTimers]
+0
+[FinNumTimers]
+[NumMsgDef]
+10
+[FinNumMsgDef]
+[FinEstructura]
+[Comportamiento]
+[Version Comportamiento]
+3
+0
+[Pools]
+0
+[Modulos]
+0
+[Eventos]
+1
+[Event]
+[Version]
+1
+EvIRQRxTC
+External
+[Maquina de Estados]
+[Version Maquina de Estados]
+1
+Top
+NULL
+[Subestados]
+3
+[Version SubEstados]
+3
+I
+;
+;
+;
+;
+;
+0
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+73 73 55 55
+[FinObjetoGrafico]
+Ready
+;
+;
+;
+;
+;
+1
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+171 218 167 122
+[FinObjetoGrafico]
+ValidTC
+;
+;
+;
+;
+;
+1
+1
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+382 438 90 30
+[FinObjetoGrafico]
+[PuntosEleccion]
+1
+[Version PuntosEleccion]
+2
+NewRxTC
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+191 434 35 35
+[FinObjetoGrafico]
+NewRxTC
+0
+[Ramas]
+2
+[Version Ramas]
+5
+NotAccepted
+true
+Ready
+DSubEst
+;
+
+ 
+
+;
+;
+;
+;
+[GraficoRama]
+[Version GraficoRama]
+0
+191 451 171 315 3
+[FinGraficoRama]
+Accepted
+true
+ValidTC
+DSubEst
+;
+
+ 
+
+;
+;
+;
+;
+[GraficoRama]
+[Version GraficoRama]
+0
+225 451 382 454 0
+[FinGraficoRama]
+[Transiciones]
+2
+[Version Transicion]
+5
+Init
+I
+OSubEstI
+Ready
+DSubEst
+FInit();
+[Trigger]
+EDROOMsl
+EDROOMStart
+true
+ 
+ 
+ 
+;
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+110 125 171 238 0
+[FinGraficoTransicion]
+NewRxTC
+Ready
+OSubEst
+NewRxTC
+DPEleccion
+;
+[Trigger]
+RxTC
+EDROOMIRQsignal
+true
+ 
+ 
+ 
+FGetTC();
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+265 340 208 434 2
+[FinGraficoTransicion]
+[VariablesConstantes]
+3
+[Version VariYConst]
+0
+VCurrentTC
+CDTCHandler
+
+Variable
+0
+[Version VariYConst]
+0
+VCurrentTMList
+CDTMList
+
+Variable
+0
+[Version VariYConst]
+0
+VCurrentEvList
+CDEventList
+
+Variable
+0
+[Metodos]
+2
+[Version Metodos]
+21
+BasicAction
+FInit()
+0
+0
+0
+0
+1
+
+4
+RxTC.MaskIRQ();
+RxTC.InstallHandler();
+SC_Channel_Init();
+RxTC.UnMaskIRQ();
+MsgDataHandler
+FGetTC()
+0
+0
+0
+0
+1
+
+6
+	
+		// Data access
+	
+	// ... =varEDROOMIRQsignal;
+VCurrentTC=varEDROOMIRQsignal;
+PUSService1::TryTCAcceptation(VCurrentTC);
+[ServiceRequest]
+Msg->data
+RxTC
+EDROOMIRQsignal
+CDTCHandler
+
+[MaquinasSubEstados]
+0
+[FinMaquinasSubEstados]
+[Fin Maquina de Estados]
+[FinComportamiento]
