@@ -23,17 +23,6 @@ NULL
 3
 [Version Puerto]
 0
-LEDMngCtrl
-1
-1
-0
-[Version Grafico Puerto]
-0
-93
-15
-CPLEDMngCtrl
-[Version Puerto]
-0
 DisplaysMngCtrl
 1
 1
@@ -41,8 +30,19 @@ DisplaysMngCtrl
 [Version Grafico Puerto]
 0
 93
-72
+69
 CPDisplaysMngCtrl
+[Version Puerto]
+0
+LEDMngCtrl
+1
+1
+0
+[Version Grafico Puerto]
+0
+93
+18
+CPLEDMngCtrl
 [Version Puerto]
 0
 SerialCommand
@@ -51,8 +51,8 @@ SerialCommand
 1
 [Version Grafico Puerto]
 0
-40
-42
+31
+24
 CPSerialCommand
 [FinPuertos]
 [ActoresComponente]
@@ -116,7 +116,7 @@ StartUp
 [ObjetoGrafico]
 [Version Objeto Grafico]
 0
-137 182 90 60
+167 182 90 60
 [FinObjetoGrafico]
 Ready
 ;
@@ -129,7 +129,7 @@ Ready
 [ObjetoGrafico]
 [Version Objeto Grafico]
 0
-133 320 93 282
+152 319 138 355
 [FinObjetoGrafico]
 [PuntosEleccion]
 1
@@ -140,7 +140,7 @@ GetCommand
 [ObjetoGrafico]
 [Version Objeto Grafico]
 0
-329 427 35 35
+490 374 35 35
 [FinObjetoGrafico]
 GetCommand
 0
@@ -163,10 +163,10 @@ DSubEst
 [GraficoRama]
 [Version GraficoRama]
 0
-346 427 226 339 3
+507 374 290 340 3
 [FinGraficoRama]
 ToggleLEDShift
-GCmdIsToggleLEDShift()
+GCmdIsToogleLEDShift()
 Ready
 DSubEst
 ;
@@ -175,12 +175,12 @@ DSubEst
  
 ;
 ;
-;
+FInvokeToggleLEDShift();
 ;
 [GraficoRama]
 [Version GraficoRama]
 0
-336 459 226 465 2
+507 408 290 479 2
 [FinGraficoRama]
 IncreaseDisplays
 GCmdIsIncreaseDisplays()
@@ -197,7 +197,7 @@ FSendIncreaseDisplays();
 [GraficoRama]
 [Version GraficoRama]
 0
-346 461 226 580 2
+519 401 290 546 2
 [FinGraficoRama]
 [Transiciones]
 3
@@ -211,7 +211,7 @@ DSubEst
 FInit();
 [Trigger]
 *
-SDisplaysReady
+SLEDReady
 true
  
  
@@ -224,9 +224,9 @@ true
 [GraficoTransicion]
 [Version GraficoTransicion]
 0
-116 120 184 182 0
+124 110 218 182 0
 [FinGraficoTransicion]
-AllSubsystemReady
+SubSysReady
 StartUp
 OSubEst
 Ready
@@ -247,7 +247,7 @@ true
 [GraficoTransicion]
 [Version GraficoTransicion]
 0
-181 242 182 320 0
+215 242 215 319 2
 [FinGraficoTransicion]
 GetCommand
 Ready
@@ -270,7 +270,7 @@ FGetCommand();
 [GraficoTransicion]
 [Version GraficoTransicion]
 0
-226 392 329 449 0
+290 387 490 391 0
 [FinGraficoTransicion]
 [VariablesConstantes]
 2
@@ -299,7 +299,7 @@ FGetCommand()
 0
 0
 1
-Guardo en mi variable superior el valor de la señal recibida
+ 
 4
 	
 		// Data access
@@ -339,7 +339,7 @@ FInvokeToggleLEDShift()
 0
 0
 1
-Envío el mensaje síncrono de que se desplace el LED
+ 
 0
 [ServiceRequest]
 invoke
@@ -354,7 +354,7 @@ FSendIncreaseDisplays()
 0
 0
 1
-Envío el mensaje de increase displays
+ 
 0
 [ServiceRequest]
 send
@@ -369,17 +369,19 @@ GCmdIsIncreaseDisplays()
 0
 0
 1
-Compruebo si el valor de VCommand es i o I 
-1
+ 
+3
+ 
 return (('i'==VCommand) || ('I'==VCommand));
+ 
 Guard
-GCmdIsToggleLEDShift()
+GCmdIsToogleLEDShift()
 0
 0
 0
 0
 1
-Compruebo si el valor de VCommand es t o T 
+ 
 1
 return (('t'==VCommand) || ('T'==VCommand));
 [MaquinasSubEstados]
@@ -405,7 +407,7 @@ WaitLEDReady
 [ObjetoGrafico]
 [Version Objeto Grafico]
 0
-221 210 90 60
+332 264 90 60
 [FinObjetoGrafico]
 WaitDisplaysReady
 ;
@@ -418,7 +420,7 @@ WaitDisplaysReady
 [ObjetoGrafico]
 [Version Objeto Grafico]
 0
-242 410 115 60
+296 485 90 60
 [FinObjetoGrafico]
 [PuntosEleccion]
 0
@@ -428,6 +430,29 @@ WaitDisplaysReady
 3
 [Version Transicion]
 5
+SendLEDStart
+Init
+OPEntrada
+WaitLEDReady
+DSubEst
+;
+[Trigger]
+*
+SLEDReady
+true
+ 
+ 
+ 
+;
+FSendLEDStart();
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+406 70 375 264 2
+[FinGraficoTransicion]
 SendDisplaysStart
 WaitLEDReady
 OSubEst
@@ -449,12 +474,12 @@ FSendDisplaysStart();
 [GraficoTransicion]
 [Version GraficoTransicion]
 0
-273 270 300 410 0
+378 324 341 485 2
 [FinGraficoTransicion]
 DisplaysReady
 WaitDisplaysReady
 OSubEst
-AllSubsystemReady
+SubSysReady
 DPSalida
 ;
 [Trigger]
@@ -472,30 +497,7 @@ true
 [GraficoTransicion]
 [Version GraficoTransicion]
 0
-314 470 355 698 0
-[FinGraficoTransicion]
-SendLEDStart
-Init
-OPEntrada
-WaitLEDReady
-DSubEst
-;
-[Trigger]
-*
-SDisplaysReady
-true
- 
- 
- 
-;
-FSendLEDStart();
-;
-0
-;
-[GraficoTransicion]
-[Version GraficoTransicion]
-0
-377 70 283 210 2
+339 545 384 698 0
 [FinGraficoTransicion]
 [VariablesConstantes]
 0
@@ -530,7 +532,7 @@ FSendLEDStart()
 	
 		// Complete Data 
 	
-	*pSLEDStart_Data=CLEDPeriod100MS
+   *pSLEDStart_Data=CLEDPeriod100Ms;
 [ServiceRequest]
 send
 LEDMngCtrl

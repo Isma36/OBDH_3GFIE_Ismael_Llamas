@@ -3,10 +3,24 @@
 0
 1
 0
-7
+18
 1
 EDROOMprioVeryHigh
-0
+14
+EDROOMVarIRQ18=leon3_getchar();
+ 
+EDROOMIRQ18BottomHalfSignal=true;
+ 
+switch(EDROOMVarIRQ18){
+    case('T'):
+    case('t'):
+    case('I'):
+    case('i'):
+        break;
+ 
+  default:
+     EDROOMIRQ18BottomHalfSignal=false;
+}
 1
 1
 0
@@ -15,7 +29,19 @@ EDROOMprioVeryHigh
 0
 10
 0
+1
+1
+[Version Mensaje]
+1
+[Version Senal]
 0
+EDROOMIRQsignal
+[Version Dato]
+1
+TEDROOMByte
+C:\Users\o.rodriguez\Desktop\Models\ExampleNexys\
+es.uah.aut.srg.edroom.mclev.data_sai.TEDROOMByte
+v1
 0
 0
 0

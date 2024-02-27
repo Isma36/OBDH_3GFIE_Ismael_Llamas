@@ -27,7 +27,7 @@ switch(EDROOMVarIRQ18){
 0
 1
 0
-0
+10
 0
 1
 1
@@ -39,7 +39,7 @@ EDROOMIRQsignal
 [Version Dato]
 1
 TEDROOMByte
-C:\Users\ismae\OneDrive\Documentos\GitHub\OBDH_3GFIE_Ismael_Llamas\ExampleNexys\
+C:\Users\ismael.llamas\Downloads\Models\ExampleNexysV1\ExampleNexysV1\
 es.uah.aut.srg.edroom.mclev.data_sai.TEDROOMByte
 v1
 0

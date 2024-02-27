@@ -36,10 +36,10 @@ EDROOMprioNormal
  
 [Version Grafico Actor Componente]
 0
-14.6485
-21.7659
-38.6719
-82.1355
+20.5079
+19.5072
+37.1094
+66.9405
 CCSystemMng
 [Version Actor Componente]
 2
@@ -53,10 +53,10 @@ EDROOMprioNormal
  
 [Version Grafico Actor Componente]
 0
-64.2578
-20.7392
-81.8359
-43.3265
+66.9922
+14.9897
+84.5703
+37.577
 CCLEDMng
 [Version Actor Componente]
 2
@@ -70,10 +70,10 @@ EDROOMprioNormal
  
 [Version Grafico Actor Componente]
 0
-64.6484
-57.4949
-82.2266
-80.0821
+64.8438
+56.2628
+82.4219
+78.8501
 CCDisplaysMng
 [FinActoresComponente]
 [Uniones]

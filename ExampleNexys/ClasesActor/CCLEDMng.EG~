@@ -30,7 +30,7 @@ LEDMngCtrl
 [Version Grafico Puerto]
 0
 4
-26
+39
 CPLEDMngCtrl
 [Version Puerto]
 0
@@ -40,8 +40,8 @@ Timer
 1
 [Version Grafico Puerto]
 0
-50
-42
+56
+27
 EDROOMTimingSAP
 [FinPuertos]
 [ActoresComponente]
@@ -94,7 +94,7 @@ I
 0
 73 73 55 55
 [FinObjetoGrafico]
-StartUp
+Idle
 ;
 ;
 ;
@@ -105,9 +105,9 @@ StartUp
 [ObjetoGrafico]
 [Version Objeto Grafico]
 0
-125 216 90 60
+142 255 90 60
 [FinObjetoGrafico]
-SubEstado2
+Ready
 ;
 ;
 ;
@@ -118,7 +118,7 @@ SubEstado2
 [ObjetoGrafico]
 [Version Objeto Grafico]
 0
-388 294 161 116
+353 273 216 151
 [FinObjetoGrafico]
 [PuntosEleccion]
 0
@@ -131,7 +131,7 @@ SubEstado2
 Init
 I
 OSubEstI
-StartUp
+Idle
 DSubEst
 ;
 [Trigger]
@@ -149,12 +149,12 @@ true
 [GraficoTransicion]
 [Version GraficoTransicion]
 0
-113 121 136 216 0
+108 124 152 255 0
 [FinGraficoTransicion]
 Start
-StartUp
+Idle
 OSubEst
-SubEstado2
+Ready
 DSubEst
 FProgShift();
 [Trigger]
@@ -172,17 +172,17 @@ FSendLEDReady();
 [GraficoTransicion]
 [Version GraficoTransicion]
 0
-202 276 388 348 0
+232 305 353 305 1
 [FinGraficoTransicion]
-Transicion2
-SubEstado2
+ShiftTimeout
+Ready
 OSubEst
-SubEstado2
+Ready
 DSubEst
-;
+FCShiftTimeOut();
 [Trigger]
- 
- 
+Timer
+EDROOMSignalTimeout
 true
  
  
@@ -195,44 +195,44 @@ true
 [GraficoTransicion]
 [Version GraficoTransicion]
 0
-421 294 507 294 4
+381 273 525 273 4
 [FinGraficoTransicion]
-Transicion3
-SubEstado2
+ToggleShift
+Ready
 OSubEst
-SubEstado2
+Ready
 DSubEst
 ;
 [Trigger]
- 
- 
+LEDMngCtrl
+SToggleLEDShift
 true
  
  
  
 ;
 ;
-;
-0
+FReplyLEDShiftToggled();
+1
 ;
 [GraficoTransicion]
 [Version GraficoTransicion]
 0
-430 410 518 410 5
+385 424 525 424 5
 [FinGraficoTransicion]
 [VariablesConstantes]
-5
+6
 [Version VariYConst]
 0
-VShiftPeriodMicrosecs
-TEDROOMUInt32
-0
+VTimeRef
+Pr_Time
+
 Variable
 0
 [Version VariYConst]
 0
 CMaxShiftPeriodMicrosecs
-TEDROOMWord32
+TEDROOMUInt32
 900000
 Constante
 0
@@ -245,8 +245,15 @@ Constante
 0
 [Version VariYConst]
 0
-VTimeRef
-Pr_Time
+VShiftPeriodMicrosecs
+TEDROOMUInt32
+0
+Variable
+0
+[Version VariYConst]
+0
+VLEDPos
+TEDROOMUInt8
 
 Variable
 0
@@ -254,28 +261,13 @@ Variable
 0
 VShiftDirection
 TEDROOMBool
-
+0
 Variable
 0
 [Metodos]
-3
+6
 [Version Metodos]
 21
-SendMsg
-FSendLEDReady()
-0
-0
-0
-0
-1
-
-0
-[ServiceRequest]
-send
-LEDMngCtrl
-SLEDReady
-NULL
-EDROOMprioNormal
 MsgDataHandler
 FGetShiftPeriod()
 0
@@ -284,12 +276,7 @@ FGetShiftPeriod()
 0
 1
 
-17
-	
-		// Data access
-	
-	// ... =varSLEDStart;
-    
+12
 // Data access
  
 VShiftPeriodMicrosecs=varSLEDStart*100000;
@@ -307,7 +294,7 @@ Msg->data
 LEDMngCtrl
 SLEDStart
 TEDROOMUInt8
-EDROOMprioNormal
+
 Inform
 FProgShift()
 0
@@ -316,7 +303,12 @@ FProgShift()
 0
 1
 
-4
+9
+	 
+	//Timing Service useful methods
+	 
+	//time.GetTime(); // Get current monotonic time
+	//time.Add(X,Y); // Add X sec + Y microsec
  
  VTimeRef+=Pr_Time(0,VShiftPeriodMicrosecs); // interval of X sec + Y microsec	 
   
@@ -326,7 +318,69 @@ InformAt
 Timer
 EDROOMSignalTimeout
 TEDROOMUInt8
+
+SendMsg
+FSendLEDReady()
+0
+0
+0
+0
+1
+
+0
+[ServiceRequest]
+send
+LEDMngCtrl
+SLEDReady
+NULL
 EDROOMprioNormal
+BasicAction
+FShiftLEDs()
+0
+0
+0
+0
+1
+
+14
+nexys_srg_gpio_turn_off_led(VLEDPos);
+ 
+if(VShiftDirection){
+ 
+	VLEDPos=(VLEDPos + 1)%10;
+}else{
+	if(VLEDPos){
+		VLEDPos--;
+	}else{
+		VLEDPos=9;
+	}
+}
+ 
+nexys_srg_gpio_turn_on_led(VLEDPos);
+CompositeAction
+FCShiftTimeOut()
+0
+0
+0
+2
+FShiftLEDs();
+FProgShift();
+ReplyMsg
+FReplyLEDShiftToggled()
+0
+0
+0
+0
+1
+Invierto el valor y por ende cambio la dirección de los leds
+1
+VShiftDirection=!VShiftDirection
+[ServiceRequest]
+Msg->reply
+LEDMngCtrl
+SLEDShiftToggled
+NULL
+EDROOMprioVeryHigh
 [MaquinasSubEstados]
 0
 [FinMaquinasSubEstados]

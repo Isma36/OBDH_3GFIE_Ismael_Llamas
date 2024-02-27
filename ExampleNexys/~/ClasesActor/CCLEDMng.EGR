@@ -30,7 +30,7 @@ LEDMngCtrl
 [Version Grafico Puerto]
 0
 4
-26
+39
 CPLEDMngCtrl
 [Version Puerto]
 0
@@ -40,8 +40,8 @@ Timer
 1
 [Version Grafico Puerto]
 0
-50
-42
+56
+27
 EDROOMTimingSAP
 [FinPuertos]
 [ActoresComponente]
