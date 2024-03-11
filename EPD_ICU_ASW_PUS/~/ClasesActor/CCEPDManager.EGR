@@ -62,9 +62,30 @@ CPTMChannelCtrl
 3
 0
 [Pools]
+1
+[Version PoolDatosMens]
 0
+EDROOMPoolCDTMList
+CDTMList
+10
 [Modulos]
-0
+2
+[Version Modulo]
+1
+icuasw_pus_services_iface
+ 
+v1
+ 
+1
+1
+[Version Modulo]
+1
+sc_channel_drv
+ 
+v1
+ 
+1
+1
 [Eventos]
 1
 [Event]
@@ -78,7 +99,7 @@ External
 Top
 NULL
 [Subestados]
-3
+4
 [Version SubEstados]
 3
 I
@@ -120,8 +141,21 @@ ValidTC
 0
 382 438 90 30
 [FinObjetoGrafico]
-[PuntosEleccion]
+Reboot
+;
+;
+;
+;
+;
 1
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+388 131 90 60
+[FinObjetoGrafico]
+[PuntosEleccion]
+2
 [Version PuntosEleccion]
 2
 NewRxTC
@@ -130,6 +164,13 @@ NewRxTC
 [Version Objeto Grafico]
 0
 191 434 35 35
+[FinObjetoGrafico]
+Transicion2
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+457 276 35 35
 [FinObjetoGrafico]
 NewRxTC
 0
@@ -141,13 +182,13 @@ NotAccepted
 true
 Ready
 DSubEst
-;
-
+FMngTCRejection();
  
-
+ 
+ 
 ;
 ;
-;
+FInvokeTxTMList();
 ;
 [GraficoRama]
 [Version GraficoRama]
@@ -155,24 +196,64 @@ DSubEst
 191 451 171 315 3
 [FinGraficoRama]
 Accepted
-true
+GAcceptTC()
 ValidTC
 DSubEst
-;
-
+FManageTCAcceptation();
  
-
+ 
+ 
 ;
 ;
-;
+FInvokeTxTMList();
 ;
 [GraficoRama]
 [Version GraficoRama]
 0
 225 451 382 454 0
 [FinGraficoRama]
-[Transiciones]
+Transicion2
+0
+[Ramas]
 2
+[Version Ramas]
+5
+ToReboot
+GToReboot()
+Reboot
+DSubEst
+FExecPrioTC();
+ 
+ 
+ 
+;
+;
+FInvokeTxTMList();
+;
+[GraficoRama]
+[Version GraficoRama]
+0
+474 276 427 191 3
+[FinGraficoRama]
+ExcepPrioTC
+true
+Ready
+DSubEst
+FExecPrioTC();
+ 
+ 
+ 
+;
+;
+FInvokeTxTMList();
+;
+[GraficoRama]
+[Version GraficoRama]
+0
+458 286 338 256 3
+[FinGraficoRama]
+[Transiciones]
+3
 [Version Transicion]
 5
 Init
@@ -221,8 +302,38 @@ FGetTC();
 0
 265 340 208 434 2
 [FinGraficoTransicion]
+Transicion2
+ValidTC
+OSubEst
+Transicion2
+DPEleccion
+;
+[Trigger]
+ 
+ 
+true
+ 
+ 
+ 
+;
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+436 438 474 310 1
+[FinGraficoTransicion]
 [VariablesConstantes]
 3
+[Version VariYConst]
+0
+VCurrentEvList
+CDEventList
+
+Variable
+0
 [Version VariYConst]
 0
 VCurrentTC
@@ -237,30 +348,20 @@ CDTMList
 
 Variable
 0
-[Version VariYConst]
-0
-VCurrentEvList
-CDEventList
-
-Variable
-0
 [Metodos]
-2
+8
 [Version Metodos]
 21
 BasicAction
-FInit()
+FExecPrioTC()
 0
 0
 0
 0
 1
-
-4
-RxTC.MaskIRQ();
-RxTC.InstallHandler();
-SC_Channel_Init();
-RxTC.UnMaskIRQ();
+ 
+1
+ PUSPrioTCExecutor::ExecTC(VCurrentTC,VCurrentTMList,VCurrentEvList);
 MsgDataHandler
 FGetTC()
 0
@@ -268,7 +369,7 @@ FGetTC()
 0
 0
 1
-
+ 
 6
 	
 		// Data access
@@ -281,7 +382,82 @@ Msg->data
 RxTC
 EDROOMIRQsignal
 CDTCHandler
-
+ 
+BasicAction
+FInit()
+0
+0
+0
+0
+1
+ 
+4
+RxTC.MaskIRQ();
+RxTC.InstallHandler();
+SC_Channel_Init();
+RxTC.UnMaskIRQ();
+InvokeMsg
+FInvokeTxTMList()
+0
+0
+0
+0
+1
+ 
+6
+	
+		// Complete Data 
+	
+ 
+*pSTxTM_Data=VCurrentTMList;
+VCurrentTMList.Clear();
+[ServiceRequest]
+invoke
+TMChannelCtrl
+STxTM
+CDTMList
+EDROOMprioVeryHigh
+BasicAction
+FManageTCAcceptation()
+0
+0
+0
+0
+1
+ 
+1
+ PUSService1::BuildTM_1_1(VCurrentTC, VCurrentTMList);
+BasicAction
+FMngTCRejection()
+0
+0
+0
+0
+1
+ 
+2
+PUSService1::BuildTM_1_2(VCurrentTC, VCurrentTMList);
+ PUSService1::CompleteTCRejection(VCurrentTC);
+Guard
+GAcceptTC()
+0
+0
+0
+0
+1
+ 
+1
+return VCurrentTC.IsAccepted();
+Guard
+GToReboot()
+0
+0
+0
+0
+1
+ 
+1
+return VCurrentTC.IsRebootTC();
 [MaquinasSubEstados]
 0
 [FinMaquinasSubEstados]

@@ -20,7 +20,7 @@ NULL
 1
 [FinStack]
 [Puertos]
-1
+2
 [Version Puerto]
 0
 TMChannelCtrl
@@ -30,6 +30,17 @@ TMChannelCtrl
 [Version Grafico Puerto]
 0
 24
+4
+CPTMChannelCtrl
+[Version Puerto]
+0
+TMChannelCtrl2
+0
+1
+0
+[Version Grafico Puerto]
+0
+50
 4
 CPTMChannelCtrl
 [FinPuertos]
@@ -53,7 +64,23 @@ CPTMChannelCtrl
 [Pools]
 0
 [Modulos]
-0
+2
+[Version Modulo]
+1
+icuasw_pus_services_iface
+ 
+v1
+ 
+1
+1
+[Version Modulo]
+1
+sc_channel_drv
+ 
+v1
+ 
+1
+1
 [Eventos]
 0
 [Maquina de Estados]
@@ -62,7 +89,7 @@ CPTMChannelCtrl
 Top
 NULL
 [Subestados]
-1
+2
 [Version SubEstados]
 3
 I
@@ -78,20 +105,114 @@ I
 0
 73 73 55 55
 [FinObjetoGrafico]
+Ready
+;
+;
+;
+;
+;
+1
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+178 226 171 133
+[FinObjetoGrafico]
 [PuntosEleccion]
 0
 [Version PuntosEleccion]
 2
 [Transiciones]
-0
+2
 [Version Transicion]
 5
+Init
+I
+OSubEstI
+Ready
+DSubEst
+;
+[Trigger]
+EDROOMsl
+EDROOMStart
+true
+ 
+ 
+ 
+;
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+106 125 196 226 0
+[FinGraficoTransicion]
+TxTM
+Ready
+OSubEst
+Ready
+DSubEst
+;
+[Trigger]
+*
+STxTM
+true
+ 
+ 
+ 
+;
+;
+FReplyTMQueued();
+1
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+214 226 303 226 4
+[FinGraficoTransicion]
 [VariablesConstantes]
 0
 [Metodos]
-0
+2
 [Version Metodos]
 21
+ReplyMsg
+FReplyTMQueued()
+0
+0
+0
+0
+1
+ 
+0
+[ServiceRequest]
+Msg->reply
+TMChannelCtrl
+STMQueued
+NULL
+EDROOMprioVeryHigh
+MsgDataHandler
+FTxTMList()
+0
+0
+0
+0
+1
+ 
+5
+	
+		// Data access
+	
+	// ... =varSTxTM;
+ SC_Channel_TxTMList(&varSTxTM);
+[ServiceRequest]
+Msg->data
+TMChannelCtrl
+STxTM
+CDTMList
+EDROOMprioVeryHigh
 [MaquinasSubEstados]
 0
 [FinMaquinasSubEstados]

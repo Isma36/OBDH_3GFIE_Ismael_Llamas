@@ -233,26 +233,17 @@ Variable
 4
 [Version Metodos]
 21
-SendMsg
-FSendDisplaysReady()
+BasicAction
+FIncreaseDisplays()
 0
 0
 0
 0
 1
-
-5
-
-for(uint8_t i=0; i < 8 ; i++)
-	VDisplays7SegValue[i]=0;
+Invierto el valor y por ende cambio la dirección de los leds
+2
  
-nexys_srg_gpio_set_7seg_digit(7, 0) ;
-[ServiceRequest]
-send
-DisplaysMngCtrl
-SDisplaysReady
-NULL
-EDROOMprioNormal
+nexys_srg_gpio_increase_seg_7seg_array(VDisplays7SegValue);
 Inform
 FProgDisplaysRefresh()
 0
@@ -267,7 +258,7 @@ Invierto el valor y por ende cambio la dirección de los leds
 	 
 	interval = Pr_Time(0,1000); // interval of X sec + Y microsec
 	 
-
+ 
 [ServiceRequest]
 InformIn
 Timer
@@ -283,21 +274,30 @@ FRefreshDsiplays()
 1
 Invierto el valor y por ende cambio la dirección de los leds
 4
-
+ 
 for(uint16_t i=0; i < 1000 ; i++ )
 	nexys_srg_gpio_seg_7seg_array(8,VDisplays7SegValue);
-
-BasicAction
-FIncreaseDisplays()
+ 
+SendMsg
+FSendDisplaysReady()
 0
 0
 0
 0
 1
-Invierto el valor y por ende cambio la dirección de los leds
-2
-
-nexys_srg_gpio_increase_seg_7seg_array(VDisplays7SegValue);
+ 
+5
+ 
+for(uint8_t i=0; i < 8 ; i++)
+	VDisplays7SegValue[i]=0;
+ 
+nexys_srg_gpio_set_7seg_digit(7, 0) ;
+[ServiceRequest]
+send
+DisplaysMngCtrl
+SDisplaysReady
+NULL
+EDROOMprioNormal
 [MaquinasSubEstados]
 0
 [FinMaquinasSubEstados]

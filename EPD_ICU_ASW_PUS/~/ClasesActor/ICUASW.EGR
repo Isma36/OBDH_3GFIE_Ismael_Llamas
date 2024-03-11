@@ -34,7 +34,7 @@ Timer
 EDROOMTimingSAP
 [FinPuertos]
 [ActoresComponente]
-2
+3
 [Version Actor Componente]
 2
 TM_ChannelCtrl
@@ -44,12 +44,12 @@ TM_ChannelCtrl
 10
 7
 EDROOMprioNormal
-
+ 
 [Version Grafico Actor Componente]
 0
-14.4531
+11.7188
 65.0924
-81.4453
+78.7109
 86.2423
 CCTM_ChannelCtrl
 [Version Actor Componente]
@@ -69,9 +69,26 @@ EDROOMprioNormal
 75.7812
 29.3634
 CCEPDManager
+[Version Actor Componente]
+2
+HK_FDIRMng
+1
+0
+0
+10
+7
+EDROOMprioNormal
+
+[Version Grafico Actor Componente]
+0
+41.4062
+40.2464
+72.4609
+51.7454
+CCHK_FDIRMng
 [FinActoresComponente]
 [Uniones]
-1
+2
 [Version Union]
 0
 Union
@@ -80,6 +97,14 @@ TMChannelCtrl
 TMChannelCtrl
 EPDManager
 TM_ChannelCtrl
+[Version Union]
+0
+Union2
+1
+TMChannelCtrl2
+TMChannelCtrl
+TM_ChannelCtrl
+HK_FDIRMng
 [FinUniones]
 [NumTimers]
 2

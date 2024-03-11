@@ -224,13 +224,6 @@ FReplyLEDShiftToggled();
 6
 [Version VariYConst]
 0
-VTimeRef
-Pr_Time
-
-Variable
-0
-[Version VariYConst]
-0
 CMaxShiftPeriodMicrosecs
 TEDROOMUInt32
 900000
@@ -242,13 +235,6 @@ CMinShiftPeriodMicrosecs
 TEDROOMUInt32
 100000
 Constante
-0
-[Version VariYConst]
-0
-VShiftPeriodMicrosecs
-TEDROOMUInt32
-0
-Variable
 0
 [Version VariYConst]
 0
@@ -264,10 +250,32 @@ TEDROOMBool
 0
 Variable
 0
+[Version VariYConst]
+0
+VShiftPeriodMicrosecs
+TEDROOMUInt32
+0
+Variable
+0
+[Version VariYConst]
+0
+VTimeRef
+Pr_Time
+
+Variable
+0
 [Metodos]
 6
 [Version Metodos]
 21
+CompositeAction
+FCShiftTimeOut()
+0
+0
+0
+2
+FShiftLEDs();
+FProgShift();
 MsgDataHandler
 FGetShiftPeriod()
 0
@@ -275,7 +283,7 @@ FGetShiftPeriod()
 0
 0
 1
-
+ 
 12
 // Data access
  
@@ -294,7 +302,7 @@ Msg->data
 LEDMngCtrl
 SLEDStart
 TEDROOMUInt8
-
+ 
 Inform
 FProgShift()
 0
@@ -302,7 +310,7 @@ FProgShift()
 0
 0
 1
-
+ 
 9
 	 
 	//Timing Service useful methods
@@ -318,53 +326,7 @@ InformAt
 Timer
 EDROOMSignalTimeout
 TEDROOMUInt8
-
-SendMsg
-FSendLEDReady()
-0
-0
-0
-0
-1
-
-0
-[ServiceRequest]
-send
-LEDMngCtrl
-SLEDReady
-NULL
-EDROOMprioNormal
-BasicAction
-FShiftLEDs()
-0
-0
-0
-0
-1
-
-14
-nexys_srg_gpio_turn_off_led(VLEDPos);
  
-if(VShiftDirection){
- 
-	VLEDPos=(VLEDPos + 1)%10;
-}else{
-	if(VLEDPos){
-		VLEDPos--;
-	}else{
-		VLEDPos=9;
-	}
-}
- 
-nexys_srg_gpio_turn_on_led(VLEDPos);
-CompositeAction
-FCShiftTimeOut()
-0
-0
-0
-2
-FShiftLEDs();
-FProgShift();
 ReplyMsg
 FReplyLEDShiftToggled()
 0
@@ -381,6 +343,44 @@ LEDMngCtrl
 SLEDShiftToggled
 NULL
 EDROOMprioVeryHigh
+SendMsg
+FSendLEDReady()
+0
+0
+0
+0
+1
+ 
+0
+[ServiceRequest]
+send
+LEDMngCtrl
+SLEDReady
+NULL
+EDROOMprioNormal
+BasicAction
+FShiftLEDs()
+0
+0
+0
+0
+1
+ 
+14
+nexys_srg_gpio_turn_off_led(VLEDPos);
+ 
+if(VShiftDirection){
+ 
+	VLEDPos=(VLEDPos + 1)%10;
+}else{
+	if(VLEDPos){
+		VLEDPos--;
+	}else{
+		VLEDPos=9;
+	}
+}
+ 
+nexys_srg_gpio_turn_on_led(VLEDPos);
 [MaquinasSubEstados]
 0
 [FinMaquinasSubEstados]

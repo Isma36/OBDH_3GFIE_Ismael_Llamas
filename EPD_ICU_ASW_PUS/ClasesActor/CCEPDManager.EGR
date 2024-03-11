@@ -223,9 +223,9 @@ GToReboot()
 Reboot
 DSubEst
 FExecPrioTC();
-
  
-
+ 
+ 
 ;
 ;
 FInvokeTxTMList();
@@ -240,9 +240,9 @@ true
 Ready
 DSubEst
 FExecPrioTC();
-
  
-
+ 
+ 
 ;
 ;
 FInvokeTxTMList();
@@ -352,6 +352,16 @@ Variable
 8
 [Version Metodos]
 21
+BasicAction
+FExecPrioTC()
+0
+0
+0
+0
+1
+ 
+1
+ PUSPrioTCExecutor::ExecTC(VCurrentTC,VCurrentTMList,VCurrentEvList);
 MsgDataHandler
 FGetTC()
 0
@@ -445,19 +455,9 @@ GToReboot()
 0
 0
 1
-
+ 
 1
-return VCurrentTC.IsRebootTC();
-BasicAction
-FExecPrioTC()
-0
-0
-0
-0
-1
-
-1
- PUSPrioTCExecutor::ExecTC(VCurrentTC,VCurrentTMList,VCurrentEvList);
+return VCurrentTC.IsRebootTC();
 [MaquinasSubEstados]
 0
 [FinMaquinasSubEstados]

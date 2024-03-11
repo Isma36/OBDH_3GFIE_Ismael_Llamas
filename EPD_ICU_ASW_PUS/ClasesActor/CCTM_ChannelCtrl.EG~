@@ -20,7 +20,7 @@ NULL
 1
 [FinStack]
 [Puertos]
-1
+2
 [Version Puerto]
 0
 TMChannelCtrl
@@ -30,6 +30,17 @@ TMChannelCtrl
 [Version Grafico Puerto]
 0
 24
+4
+CPTMChannelCtrl
+[Version Puerto]
+0
+TMChannelCtrl2
+0
+1
+0
+[Version Grafico Puerto]
+0
+50
 4
 CPTMChannelCtrl
 [FinPuertos]
