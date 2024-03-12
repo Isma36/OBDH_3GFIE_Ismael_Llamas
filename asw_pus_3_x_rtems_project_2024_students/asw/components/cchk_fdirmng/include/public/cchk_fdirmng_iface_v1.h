@@ -17,11 +17,11 @@
 //******************************************************************************
 // Required software interfaces
 
-#include <public/icuasw_pus_service1_v1.h>
+ #include <public/icuasw_pus_services_iface_v1.h>
 
 
 /**
- * \class   CCHK_FDIRMng
+ * \class   CCHK_FDIRMng_
  *
  */
 class CCHK_FDIRMng: public CEDROOMComponent {
