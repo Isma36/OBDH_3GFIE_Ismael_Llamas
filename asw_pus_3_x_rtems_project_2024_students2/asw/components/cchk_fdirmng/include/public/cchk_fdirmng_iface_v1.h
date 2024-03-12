@@ -17,7 +17,7 @@
 //******************************************************************************
 // Required software interfaces
 
-#include <public/icuasw_pus_service_iface_v1.h>
+#include <public/icuasw_pus_services_iface_v1_v1.h>
 
 
 /**
@@ -264,7 +264,7 @@ public:
 		/**
 		 * \brief  
 		 */
-		void	FDo_HK_FDIR();
+		void	FDoHK_FDIR();
 
 		/**
 		 * \brief  
