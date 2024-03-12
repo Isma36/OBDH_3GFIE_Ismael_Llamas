@@ -7,7 +7,7 @@
 #include "public/tmtc_dyn_mem.h"
 
 enum TTCExecCtrl {
-	ExecCtrlPrioTC, ExecCtrlReboot
+	ExecCtrlPrioTC, ExecCtrlReboot,ExecCtrlHK_FDIRTC
 };
 
 enum TTCAcceptationStatus {
