@@ -22,13 +22,11 @@ class CDTMHandler{
 
 private:
 
-	//Offset to the next field
+
 	uint16_t mAppDataNextFieldOffset;
 
-	//telemetry descriptor
 	struct tm_descriptor mTMDescriptor;
 
-	//TM Sequence Counter
 	static uint16_t  sGlobalTMSeqCounter;
 
 

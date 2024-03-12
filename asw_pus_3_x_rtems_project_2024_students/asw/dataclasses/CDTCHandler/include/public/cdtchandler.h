@@ -7,7 +7,7 @@
 #include "public/tmtc_dyn_mem.h"
 
 enum TTCExecCtrl {
-	ExecCtrlPrioTC, ExecCtrlReboot,ExecCtrlHK_FDIRTC
+	ExecCtrlPrioTC, ExecCtrlReboot
 };
 
 enum TTCAcceptationStatus {
@@ -23,8 +23,8 @@ enum TTCAcceptationStatus {
 class CDTCHandler {
 
 	friend class PUSService1;
-	friend class PUSService9;
 	friend class PUSService3;
+	friend class PUSService9;
 	friend class PUSService17;
 
 	friend class PUSPrioTCExecutor;
@@ -95,7 +95,7 @@ protected:
 
 		mTCExecCtrl = ExecCtrlReboot;
 	}
-
+	
 	/**
 	 * \brief Set mTCExecCtrl to ExecCtrlHK_FDIRTC
 	 *
@@ -105,7 +105,6 @@ protected:
 
 		mTCExecCtrl = ExecCtrlHK_FDIRTC;
 	}
-
 
 	/**
 	 * \brief Set Acceptation Status
@@ -163,6 +162,7 @@ public:
 	bool_t IsHK_FDIRTC() {
 			return ExecCtrlHK_FDIRTC == mTCExecCtrl;
 	}
+
 
 	/**
 	 * \brief Get APID

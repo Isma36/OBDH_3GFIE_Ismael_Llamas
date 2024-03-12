@@ -15,6 +15,7 @@ CCTM_ChannelCtrl::EDROOM_CTX_Top_0::EDROOM_CTX_Top_0(CCTM_ChannelCtrl &act ):
 	EDROOMcomponent(act),
 	Msg(EDROOMcomponent.Msg),
 	MsgBack(EDROOMcomponent.MsgBack),
+	TMChannelCtrl2(EDROOMcomponent.TMChannelCtrl2),
 	TMChannelCtrl(EDROOMcomponent.TMChannelCtrl)
 {
 }
@@ -24,6 +25,7 @@ CCTM_ChannelCtrl::EDROOM_CTX_Top_0::EDROOM_CTX_Top_0(EDROOM_CTX_Top_0 &context):
 	EDROOMcomponent(context.EDROOMcomponent),
 	Msg(context.Msg),
 	MsgBack(context.MsgBack),
+	TMChannelCtrl2(context.TMChannelCtrl2),
 	TMChannelCtrl(context.TMChannelCtrl)
 {
 
@@ -73,7 +75,8 @@ void	CCTM_ChannelCtrl::EDROOM_CTX_Top_0::FTxTMList()
 	
 		// Data access
 	
-	SC_Channel_TxTMList(&varSTxTM);
+	// ... =varSTxTM;
+ SC_Channel_TxTMList(&varSTxTM);
 
 }
 
@@ -125,8 +128,6 @@ void CCTM_ChannelCtrl::EDROOM_SUB_Top_0::EDROOMBehaviour()
 				break;
 			//Next Transition is TxTM
 			case (TxTM):
-				//Msg->Data Handling 
-				FTxTMList();
 				//Reply Synchronous Message 
 				FReplyTMQueued();
 				//Next State is Ready

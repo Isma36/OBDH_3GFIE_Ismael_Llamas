@@ -5,8 +5,8 @@
 0
 0
 [Modificado]
-1
-1
+0
+0
 0
 [Estructura]
 [Version Estructura]
@@ -73,11 +73,11 @@ CDTMList
 [Version Modulo]
 1
 icuasw_pus_service1
-
+ 
 v1
-
+ 
 1
-0
+1
 [Eventos]
 1
 [Event]
@@ -178,15 +178,15 @@ FInvokeTxTMList();
 2
 [Version VariYConst]
 0
-VNextTimeout
-Pr_Time
+VCurrentTMList
+CDTMList
 
 Variable
 0
 [Version VariYConst]
 0
-VCurrentTMList
-CDTMList
+VNextTimeout
+Pr_Time
 
 Variable
 0
@@ -195,13 +195,36 @@ Variable
 [Version Metodos]
 21
 Inform
+FDoHK_FDIR()
+0
+0
+0
+0
+1
+ 
+8
+	 
+	//Timing Service useful methods
+	 
+	//time.GetTime(); // Get current monotonic time
+	//time.Add(X,Y); // Add X sec + Y microsec
+VNextTimeout+= Pr_Time(1,0); // Add X sec + Y microsec
+time=VNextTimeout;
+PUSService3::DoHK(VCurrentTMList);
+[ServiceRequest]
+InformAt
+HK_FDIRTimer
+EDROOMSignalTimeout
+ 
+EDROOMprioNormal
+Inform
 FInitHK_FDIR()
 0
 0
 0
 0
 1
-
+ 
 9
 	 
 	//Timing Service useful methods
@@ -216,30 +239,7 @@ PUSService3::Init(); //Init PUSService 3
 InformAt
 HK_FDIRTimer
 EDROOMSignalTimeout
-
-EDROOMprioNormal
-Inform
-FDoHK_FDIR()
-0
-0
-0
-0
-1
-
-8
-	 
-	//Timing Service useful methods
-	 
-	//time.GetTime(); // Get current monotonic time
-	//time.Add(X,Y); // Add X sec + Y microsec
-VNextTimeout+= Pr_Time(1,0); // Add X sec + Y microsec
-time=VNextTimeout;
-PUSService3::DoHK(VCurrentTMList);
-[ServiceRequest]
-InformAt
-HK_FDIRTimer
-EDROOMSignalTimeout
-
+ 
 EDROOMprioNormal
 InvokeMsg
 FInvokeTxTMList()
@@ -248,7 +248,7 @@ FInvokeTxTMList()
 0
 0
 1
-
+ 
 5
 	
 		// Complete Data 

@@ -23,10 +23,12 @@ enum TTCAcceptationStatus {
 class CDTCHandler {
 
 	friend class PUSService1;
+	friend class PUSService3;
 	friend class PUSService9;
 	friend class PUSService17;
 
 	friend class PUSPrioTCExecutor;
+	friend class PUS_HK_FDIR_TCExecutor;
 
 	friend void SC_Channel_GetNextTC(CDTCHandler *tc);
 
@@ -93,6 +95,16 @@ protected:
 
 		mTCExecCtrl = ExecCtrlReboot;
 	}
+	
+	/**
+	 * \brief Set mTCExecCtrl to ExecCtrlHK_FDIRTC
+	 *
+	 */
+
+	void SetExecCtrlAsHK_FDIRTC() {
+
+		mTCExecCtrl = ExecCtrlHK_FDIRTC;
+	}
 
 	/**
 	 * \brief Set Acceptation Status
@@ -146,6 +158,11 @@ public:
 	bool_t IsRebootTC() {
 		return ExecCtrlReboot == mTCExecCtrl;
 	}
+
+	bool_t IsHK_FDIRTC() {
+			return ExecCtrlHK_FDIRTC == mTCExecCtrl;
+	}
+
 
 	/**
 	 * \brief Get APID

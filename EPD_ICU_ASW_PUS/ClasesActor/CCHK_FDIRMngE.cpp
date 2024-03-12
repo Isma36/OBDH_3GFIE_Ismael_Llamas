@@ -25,7 +25,7 @@ CCHK_FDIRMng::CCHK_FDIRMng(TEDROOMComponentID id,
 
 		// *******************  Timers  ********************
 
-		HK_FDIR_Timer(&EDROOMtimingSAP, 2 ),
+		HK_FDIRTimer(&EDROOMtimingSAP, 2 ),
 
 		// ***************	Top State  *****************
 

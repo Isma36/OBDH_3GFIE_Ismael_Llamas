@@ -75,7 +75,8 @@ void	CCTM_ChannelCtrl::EDROOM_CTX_Top_0::FTxTMList()
 	
 		// Data access
 	
-	SC_Channel_TxTMList(&varSTxTM);
+	// ... =varSTxTM;
+ SC_Channel_TxTMList(&varSTxTM);
 
 }
 
@@ -127,8 +128,6 @@ void CCTM_ChannelCtrl::EDROOM_SUB_Top_0::EDROOMBehaviour()
 				break;
 			//Next Transition is TxTM
 			case (TxTM):
-				//Msg->Data Handling 
-				FTxTMList();
 				//Reply Synchronous Message 
 				FReplyTMQueued();
 				//Next State is Ready
