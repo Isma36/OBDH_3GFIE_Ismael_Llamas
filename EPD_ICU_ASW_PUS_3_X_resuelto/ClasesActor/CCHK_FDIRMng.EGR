@@ -1,0 +1,260 @@
+[Version Actor SW]
+5
+0
+0
+0
+0
+[Modificado]
+1
+1
+0
+[Estructura]
+[Version Estructura]
+3
+[Parametro]
+NULL
+ 
+ 
+[FinParametro]
+[Stack]
+1
+[FinStack]
+[Puertos]
+2
+[Version Puerto]
+0
+HK_FDIRTimer
+0
+1
+1
+[Version Grafico Puerto]
+0
+66
+14
+EDROOMTimingSAP
+[Version Puerto]
+0
+TMChannelCtrl
+1
+1
+0
+[Version Grafico Puerto]
+0
+30
+93
+CPTMChannelCtrl
+[FinPuertos]
+[ActoresComponente]
+0
+[FinActoresComponente]
+[Uniones]
+0
+[FinUniones]
+[NumTimers]
+2
+[FinNumTimers]
+[NumMsgDef]
+10
+[FinNumMsgDef]
+[FinEstructura]
+[Comportamiento]
+[Version Comportamiento]
+3
+0
+[Pools]
+1
+[Version PoolDatosMens]
+0
+EDROOMPoolCDTMList
+CDTMList
+10
+[Modulos]
+1
+[Version Modulo]
+1
+icuasw_pus_service_iface
+
+v1
+
+1
+0
+[Eventos]
+1
+[Event]
+[Version]
+1
+EvTimerHK_FDIRTimer
+Timer
+[Maquina de Estados]
+[Version Maquina de Estados]
+1
+Top
+NULL
+[Subestados]
+2
+[Version SubEstados]
+3
+I
+;
+;
+;
+;
+;
+0
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+73 73 55 55
+[FinObjetoGrafico]
+Ready
+;
+;
+;
+;
+;
+1
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+237 220 152 128
+[FinObjetoGrafico]
+[PuntosEleccion]
+0
+[Version PuntosEleccion]
+2
+[Transiciones]
+2
+[Version Transicion]
+5
+Init
+I
+OSubEstI
+Ready
+DSubEst
+FInitHK_FDIR();
+[Trigger]
+EDROOMsl
+EDROOMStart
+true
+ 
+ 
+ 
+;
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+120 116 237 290 0
+[FinGraficoTransicion]
+DoHK_FDIR
+Ready
+OSubEst
+Ready
+DSubEst
+FDo_HK_FDIR();
+[Trigger]
+HK_FDIRTimer
+EDROOMSignalTimeout
+true
+ 
+ 
+ 
+;
+;
+FInvokeTxTMList();
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+259 348 366 348 5
+[FinGraficoTransicion]
+[VariablesConstantes]
+2
+[Version VariYConst]
+0
+VNextTimeout
+Pr_Time
+
+Variable
+0
+[Version VariYConst]
+0
+VCurrentTMList
+CDTMList
+
+Variable
+0
+[Metodos]
+3
+[Version Metodos]
+21
+Inform
+FInitHK_FDIR()
+0
+0
+0
+0
+1
+
+5
+	
+time.GetTime(); // Get current monotonic time   
+time+=Pr_Time(1,0); // Add X sec + Y microsec    
+VNextTimeout=time;
+PUSService3::Init(); //Init PUSService 3
+[ServiceRequest]
+InformAt
+HK_FDIRTimer
+EDROOMSignalTimeout
+
+EDROOMprioNormal
+Inform
+FDo_HK_FDIR()
+0
+0
+0
+0
+1
+
+4
+
+VNextTimeout+= Pr_Time(1,0); // Add X sec + Y microsec 
+time=VNextTimeout; 
+PUSService3::DoHK(VCurrentTMList);	
+[ServiceRequest]
+InformAt
+HK_FDIRTimer
+EDROOMSignalTimeout
+
+
+InvokeMsg
+FInvokeTxTMList()
+0
+0
+0
+0
+1
+
+5
+
+ // Complete Data 
+	
+ *pSTxTM_Data=VCurrentTMList;    
+ VCurrentTMList.Clear();
+[ServiceRequest]
+invoke
+TMChannelCtrl
+STxTM
+CDTMList
+EDROOMprioVeryHigh
+[MaquinasSubEstados]
+0
+[FinMaquinasSubEstados]
+[Fin Maquina de Estados]
+[FinComportamiento]

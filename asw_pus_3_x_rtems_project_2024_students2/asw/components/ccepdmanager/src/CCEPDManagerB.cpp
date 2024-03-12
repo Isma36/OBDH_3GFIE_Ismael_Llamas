@@ -87,8 +87,8 @@ void	CCEPDManager::EDROOM_CTX_Top_0::FGetTC()
 	
 		// Data access
 	
-	// ... =varEDROOMIRQsignal;
 VCurrentTC=varEDROOMIRQsignal;
+ 
 PUSService1::TryTCAcceptation(VCurrentTC);
 
 }
@@ -100,8 +100,10 @@ void	CCEPDManager::EDROOM_CTX_Top_0::FInit()
 {
 
 RxTC.MaskIRQ();
+ 
 RxTC.InstallHandler();
 SC_Channel_Init();
+ 
 RxTC.UnMaskIRQ();
 
 }
@@ -116,20 +118,20 @@ void	CCEPDManager::EDROOM_CTX_Top_0::FInvokeTxTMList()
 	
 		// Complete Data 
 	
- 
-*pSTxTM_Data=VCurrentTMList;
-VCurrentTMList.Clear();
+	*pSTxTM_Data=VCurrentTMList;    
+	VCurrentTMList.Clear();
    //Invoke synchronous communication 
    MsgBack=TMChannelCtrl.invoke(STxTM,pSTxTM_Data,&EDROOMPoolCDTMList); 
 }
 
 
 
-void	CCEPDManager::EDROOM_CTX_Top_0::FManageTCAcceptation()
+void	CCEPDManager::EDROOM_CTX_Top_0::FMngTCAcceptation()
 
 {
 
- PUSService1::BuildTM_1_1(VCurrentTC, VCurrentTMList);
+ 
+PUSService1::BuildTM_1_1(VCurrentTC, VCurrentTMList);
 
 }
 
@@ -139,8 +141,10 @@ void	CCEPDManager::EDROOM_CTX_Top_0::FMngTCRejection()
 
 {
 
+ 
 PUSService1::BuildTM_1_2(VCurrentTC, VCurrentTMList);
- PUSService1::CompleteTCRejection(VCurrentTC);
+ 
+PUSService1::CompleteTCRejection(VCurrentTC);
 
 }
 
@@ -243,7 +247,7 @@ void CCEPDManager::EDROOM_SUB_Top_0::EDROOMBehaviour()
 				if( GAcceptTC() )
 				{
 					//Execute Action 
-					FManageTCAcceptation();
+					FMngTCAcceptation();
 					//Invoke Synchronous Message 
 					FInvokeTxTMList();
 
@@ -270,8 +274,8 @@ void CCEPDManager::EDROOM_SUB_Top_0::EDROOMBehaviour()
 					edroomNextState = Ready;
 				 } 
 				break;
-			//To Choice Point Transicion2
-			case (Transicion2):
+			//To Choice Point HandleTC
+			case (HandleTC):
 
 				//Evaluate Branch ToReboot
 				if( GToReboot() )
@@ -281,14 +285,14 @@ void CCEPDManager::EDROOM_SUB_Top_0::EDROOMBehaviour()
 					//Invoke Synchronous Message 
 					FInvokeTxTMList();
 
-					//Branch taken is Transicion2_ToReboot
+					//Branch taken is HandleTC_ToReboot
 					edroomCurrentTrans.localId =
-						Transicion2_ToReboot;
+						HandleTC_ToReboot;
 
 					//Next State is Reboot
 					edroomNextState = Reboot;
 				 } 
-				//Default Branch ExcepPrioTC
+				//Default Branch ExecPrioTC
 				else
 				{
 					//Execute Action 
@@ -296,9 +300,9 @@ void CCEPDManager::EDROOM_SUB_Top_0::EDROOMBehaviour()
 					//Invoke Synchronous Message 
 					FInvokeTxTMList();
 
-					//Branch taken is Transicion2_ExcepPrioTC
+					//Branch taken is HandleTC_ExecPrioTC
 					edroomCurrentTrans.localId =
-						Transicion2_ExcepPrioTC;
+						HandleTC_ExecPrioTC;
 
 					//Next State is Ready
 					edroomNextState = Ready;
@@ -322,16 +326,16 @@ void CCEPDManager::EDROOM_SUB_Top_0::EDROOMBehaviour()
 				edroomCurrentTrans=EDROOMReadyArrival();
 				break;
 
-				//Go to the join point ValidTC
-			case (ValidTC):
-				//Arrival to join point ValidTC
-				edroomCurrentTrans=EDROOMValidTCArrival();
-				break;
-
 				//Go to the state Reboot
 			case (Reboot):
 				//Arrival to state Reboot
 				edroomCurrentTrans=EDROOMRebootArrival();
+				break;
+
+				//Go to the join point ValidTC
+			case (ValidTC):
+				//Arrival to join point ValidTC
+				edroomCurrentTrans=EDROOMValidTCArrival();
 				break;
 
 		}
@@ -390,8 +394,8 @@ TEDROOMTransId CCEPDManager::EDROOM_SUB_Top_0::EDROOMValidTCArrival()
 
 	TEDROOMTransId edroomCurrentTrans;
 
-	//Next transition is  Transicion2
-	edroomCurrentTrans.localId = Transicion2;
+	//Next transition is  HandleTC
+	edroomCurrentTrans.localId = HandleTC;
 	edroomCurrentTrans.distanceToContext = 0 ;
 	return(edroomCurrentTrans);
 

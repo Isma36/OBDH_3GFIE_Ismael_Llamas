@@ -25,9 +25,13 @@ CCEPDManager::CEDROOMPOOLIRQ18CDTCHandler	CCEPDManager::EDROOMPoolIRQ18;
 void 	CCEPDManager::EDROOMIRQ18HandlerTopHalfFunction(void){
 
 	bool EDROOMIRQ18BottomHalfSignal=true;
-	#ifdef NEXYS_PLATFORM
+	#ifdef NEXYS_PLATFORM 
+
+	 
 
 	EDROOMIRQ18BottomHalfSignal=EDROOMVarIRQ18.HandleIRQ();
+
+	 
 
 	#endif
 
@@ -71,9 +75,13 @@ Pr_TaskRV_t 	CCEPDManager::EDROOMIRQ18BottomHalfTask(Pr_TaskP_t){
 
 		if(!EDROOMSemEndIRQ18.WaitCond()){
 
-			#ifndef NEXYS_PLATFORM
+			#ifndef NEXYS_PLATFORM 
+
+			 
 
 			SC_Channel_GetNextTC(&EDROOMVarIRQ18);
+
+			 
 
 			#endif
 
@@ -187,8 +195,6 @@ void CCEPDManager::EDROOMBehaviour()
 		// *************** PUERTOS IRQ ********************
 
 	RxTC.EndIRQHandlerTask();
-
-
 }
 
 

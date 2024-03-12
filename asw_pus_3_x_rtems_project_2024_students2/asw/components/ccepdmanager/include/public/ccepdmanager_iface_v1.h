@@ -38,9 +38,9 @@ public:
 	 */
 	 enum TEDROOMCCEPDManagerSignal { EDROOMSignalTimeout, 
 							EDROOMSignalDestroy, 
+							EDROOMIRQsignal, 
 							STxTM, 
-							STMQueued, 
-							EDROOMIRQsignal };
+							STMQueued };
 
 	/**
 	 * \class CCEPDManager::CEDROOMMemory
@@ -204,9 +204,9 @@ public:
 	 */
 	enum TEDROOMCCEPDManagerSignal { EDROOMSignalTimeout,
 		EDROOMSignalDestroy,
+		EDROOMIRQsignal,
 		STxTM,
-		STMQueued,
-		EDROOMIRQsignal };
+		STMQueued };
 
 
 		friend class CCEPDManager;
@@ -228,17 +228,17 @@ public:
 		//! State Identifiers
 		enum TEDROOMStateID{I,
 			Ready,
-			ValidTC,
-			Reboot};
+			Reboot,
+			ValidTC};
 
 		//!Transition Identifiers
 		enum TEDROOMTransitionID{Init,
 			NewRxTC,
 			NewRxTC_Accepted,
 			NewRxTC_NotAccepted,
-			Transicion2,
-			Transicion2_ToReboot,
-			Transicion2_ExcepPrioTC,
+			HandleTC,
+			HandleTC_ToReboot,
+			HandleTC_ExecPrioTC,
 			EDROOMMemoryTrans };
 
 
@@ -317,7 +317,7 @@ public:
 		/**
 		 * \brief  
 		 */
-		void	FManageTCAcceptation();
+		void	FMngTCAcceptation();
 
 		/**
 		 * \brief  

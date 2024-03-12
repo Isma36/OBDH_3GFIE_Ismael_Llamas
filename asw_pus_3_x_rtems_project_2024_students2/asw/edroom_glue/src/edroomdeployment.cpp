@@ -9,8 +9,8 @@
 //Main Wait
  
 void MainWait(ICUASW   &comp1,
-					CCTM_ChannelCtrl   &comp2,
-					CCEPDManager   &comp3,
+					CCEPDManager   &comp2,
+					CCTM_ChannelCtrl   &comp3,
 					CCHK_FDIRMng   &comp4){
  
 	Pr_Time waitTime(3, 0);
@@ -36,9 +36,9 @@ void CEDROOMSystemMemory::SetMemory(){
 	comp1Memory.SetMemory(10, comp1Messages, &comp1MessagesMarks[0]
 					,13,comp1QueueNodes, &comp1QueueNodesMarks[0]);
 	comp2Memory.SetMemory(10, comp2Messages, &comp2MessagesMarks[0]
-					,10,comp2QueueNodes, &comp2QueueNodesMarks[0]);
+					,11,comp2QueueNodes, &comp2QueueNodesMarks[0]);
 	comp3Memory.SetMemory(10, comp3Messages, &comp3MessagesMarks[0]
-					,11,comp3QueueNodes, &comp3QueueNodesMarks[0]);
+					,10,comp3QueueNodes, &comp3QueueNodesMarks[0]);
 	comp4Memory.SetMemory(10, comp4Messages, &comp4MessagesMarks[0]
 					,14,comp4QueueNodes, &comp4QueueNodesMarks[0]);
 }
@@ -47,8 +47,8 @@ void CEDROOMSystemMemory::SetMemory(){
 //SetComponents
  
 void CEDROOMSystemCommSAP::SetComponents(ICUASW   *p_comp1,
-										CCTM_ChannelCtrl   *p_comp2,
-										CCEPDManager   *p_comp3,
+										CCEPDManager   *p_comp2,
+										CCTM_ChannelCtrl   *p_comp3,
 										CCHK_FDIRMng   *p_comp4){
 	mp_comp1=p_comp1;
 	mp_comp2=p_comp2;
@@ -64,22 +64,7 @@ void CEDROOMSystemCommSAP::SetComponents(ICUASW   *p_comp1,
 //*****************************************************************************
  
  
-TEDROOMSignal CEDROOMSystemCommSAP::C2TM_ChannelCtrl_PTMChannelCtrl2__C4HK_FDIRMng_PTMChannelCtrl(TEDROOMSignal signalOut){
- 
-	TEDROOMSignal signalIn;
- 
-	switch(signalOut){
- 
-		case( CCTM_ChannelCtrl::STMQueued):	 signalIn=CCHK_FDIRMng::STMQueued; break;
- 
-		default: signalIn=(TEDROOMSignal)(-1); break;
- 
-	}
-	return signalIn;
- 
-}
- 
-TEDROOMSignal CEDROOMSystemCommSAP::C4HK_FDIRMng_PTMChannelCtrl__C2TM_ChannelCtrl_PTMChannelCtrl2(TEDROOMSignal signalOut){
+TEDROOMSignal CEDROOMSystemCommSAP::C4HK_FDIRMng_PTMChannelCtrl__C3TM_ChannelCtrl_PTMChannelCtrl2(TEDROOMSignal signalOut){
  
 	TEDROOMSignal signalIn;
  
@@ -94,7 +79,22 @@ TEDROOMSignal CEDROOMSystemCommSAP::C4HK_FDIRMng_PTMChannelCtrl__C2TM_ChannelCtr
  
 }
  
-TEDROOMSignal CEDROOMSystemCommSAP::C3EPDManager_PTMChannelCtrl__C2TM_ChannelCtrl_PTMChannelCtrl(TEDROOMSignal signalOut){
+TEDROOMSignal CEDROOMSystemCommSAP::C3TM_ChannelCtrl_PTMChannelCtrl2__C4HK_FDIRMng_PTMChannelCtrl(TEDROOMSignal signalOut){
+ 
+	TEDROOMSignal signalIn;
+ 
+	switch(signalOut){
+ 
+		case( CCTM_ChannelCtrl::STMQueued):	 signalIn=CCHK_FDIRMng::STMQueued; break;
+ 
+		default: signalIn=(TEDROOMSignal)(-1); break;
+ 
+	}
+	return signalIn;
+ 
+}
+ 
+TEDROOMSignal CEDROOMSystemCommSAP::C2EPDManager_PTMChannelCtrl__C3TM_ChannelCtrl_PTMChannelCtrl(TEDROOMSignal signalOut){
  
 	TEDROOMSignal signalIn;
  
@@ -109,7 +109,7 @@ TEDROOMSignal CEDROOMSystemCommSAP::C3EPDManager_PTMChannelCtrl__C2TM_ChannelCtr
  
 }
  
-TEDROOMSignal CEDROOMSystemCommSAP::C2TM_ChannelCtrl_PTMChannelCtrl__C3EPDManager_PTMChannelCtrl(TEDROOMSignal signalOut){
+TEDROOMSignal CEDROOMSystemCommSAP::C3TM_ChannelCtrl_PTMChannelCtrl__C2EPDManager_PTMChannelCtrl(TEDROOMSignal signalOut){
  
 	TEDROOMSignal signalIn;
  
@@ -135,12 +135,12 @@ void CEDROOMSystemCommSAP::RegisterInterfaces(){
 	m_localCommSAP.RegisterInterface(1, mp_comp1->Timer, mp_comp1);
  
 	// Register Interface for Component 2
-	m_localCommSAP.RegisterInterface(1, mp_comp2->TMChannelCtrl2, mp_comp2);
+	m_localCommSAP.RegisterInterface(1, mp_comp2->RxTC, mp_comp2);
 	m_localCommSAP.RegisterInterface(2, mp_comp2->TMChannelCtrl, mp_comp2);
  
 	// Register Interface for Component 3
-	m_localCommSAP.RegisterInterface(1, mp_comp3->TMChannelCtrl, mp_comp3);
-	m_localCommSAP.RegisterInterface(2, mp_comp3->RxTC, mp_comp3);
+	m_localCommSAP.RegisterInterface(1, mp_comp3->TMChannelCtrl2, mp_comp3);
+	m_localCommSAP.RegisterInterface(2, mp_comp3->TMChannelCtrl, mp_comp3);
  
 	// Register Interface for Component 4
 	m_localCommSAP.RegisterInterface(1, mp_comp4->TMChannelCtrl, mp_comp4);
@@ -154,13 +154,13 @@ void CEDROOMSystemCommSAP::RegisterInterfaces(){
  
 void CEDROOMSystemCommSAP::SetLocalConnections(){
  
-	m_localCommSAP.Connect(mp_comp2->TMChannelCtrl2, mp_comp4->TMChannelCtrl, connections[0], 
-					C2TM_ChannelCtrl_PTMChannelCtrl2__C4HK_FDIRMng_PTMChannelCtrl, 
-					C4HK_FDIRMng_PTMChannelCtrl__C2TM_ChannelCtrl_PTMChannelCtrl2);
+	m_localCommSAP.Connect(mp_comp4->TMChannelCtrl, mp_comp3->TMChannelCtrl2, connections[0], 
+					C4HK_FDIRMng_PTMChannelCtrl__C3TM_ChannelCtrl_PTMChannelCtrl2, 
+					C3TM_ChannelCtrl_PTMChannelCtrl2__C4HK_FDIRMng_PTMChannelCtrl);
  
-	m_localCommSAP.Connect(mp_comp3->TMChannelCtrl, mp_comp2->TMChannelCtrl, connections[1], 
-					C3EPDManager_PTMChannelCtrl__C2TM_ChannelCtrl_PTMChannelCtrl, 
-					C2TM_ChannelCtrl_PTMChannelCtrl__C3EPDManager_PTMChannelCtrl);
+	m_localCommSAP.Connect(mp_comp2->TMChannelCtrl, mp_comp3->TMChannelCtrl, connections[1], 
+					C2EPDManager_PTMChannelCtrl__C3TM_ChannelCtrl_PTMChannelCtrl, 
+					C3TM_ChannelCtrl_PTMChannelCtrl__C2EPDManager_PTMChannelCtrl);
  
 }
  
@@ -197,8 +197,8 @@ CEDROOMSystemDeployment::CEDROOMSystemDeployment(){
 ////Config
  
 void CEDROOMSystemDeployment::Config(ICUASW   *p_comp1,
-											CCTM_ChannelCtrl   *p_comp2,
-											CCEPDManager   *p_comp3,
+											CCEPDManager   *p_comp2,
+											CCTM_ChannelCtrl   *p_comp3,
 											CCHK_FDIRMng   *p_comp4){
  
 	mp_comp1=p_comp1;

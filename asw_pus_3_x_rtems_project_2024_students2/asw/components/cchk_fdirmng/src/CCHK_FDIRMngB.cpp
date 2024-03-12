@@ -66,19 +66,15 @@ bool CCHK_FDIRMng::EDROOM_CTX_Top_0::EDROOMSearchContextTrans(
 
 	// User-defined Functions   ****************************
 
-void	CCHK_FDIRMng::EDROOM_CTX_Top_0::FDoHK_FDIR()
+void	CCHK_FDIRMng::EDROOM_CTX_Top_0::FDo_HK_FDIR()
 
 {
    //Define absolute time
   Pr_Time time;
-	 
-	//Timing Service useful methods
-	 
-	//time.GetTime(); // Get current monotonic time
-	//time.Add(X,Y); // Add X sec + Y microsec
-VNextTimeout+= Pr_Time(1,0); // Add X sec + Y microsec
-time=VNextTimeout;
-PUSService3::DoHK(VCurrentTMList);
+ 
+VNextTimeout+= Pr_Time(1,0); // Add X sec + Y microsec 
+time=VNextTimeout; 
+PUSService3::DoHK(VCurrentTMList);	
    //Program absolute timer 
    HK_FDIRTimer.InformAt( time ); 
 }
@@ -90,11 +86,7 @@ void	CCHK_FDIRMng::EDROOM_CTX_Top_0::FInitHK_FDIR()
 {
    //Define absolute time
   Pr_Time time;
-	 
-	//Timing Service useful methods
-	 
-	//time.GetTime(); // Get current monotonic time
-	//time.Add(X,Y); // Add X sec + Y microsec
+	
 time.GetTime(); // Get current monotonic time   
 time+=Pr_Time(1,0); // Add X sec + Y microsec    
 VNextTimeout=time;
@@ -110,11 +102,11 @@ void	CCHK_FDIRMng::EDROOM_CTX_Top_0::FInvokeTxTMList()
 {
    //Allocate data from pool
   CDTMList * pSTxTM_Data = EDROOMPoolCDTMList.AllocData();
+ 
+ // Complete Data 
 	
-		// Complete Data 
-	
-*pSTxTM_Data=VCurrentTMList;
-VCurrentTMList.Clear();
+ *pSTxTM_Data=VCurrentTMList;    
+ VCurrentTMList.Clear();
    //Invoke synchronous communication 
    MsgBack=TMChannelCtrl.invoke(STxTM,pSTxTM_Data,&EDROOMPoolCDTMList); 
 }
@@ -191,7 +183,7 @@ void CCHK_FDIRMng::EDROOM_SUB_Top_0::EDROOMBehaviour()
 			//Next Transition is DoHK_FDIR
 			case (DoHK_FDIR):
 				//Execute Action 
-				FDoHK_FDIR();
+				FDo_HK_FDIR();
 				//Invoke Synchronous Message 
 				FInvokeTxTMList();
 				//Next State is Ready
