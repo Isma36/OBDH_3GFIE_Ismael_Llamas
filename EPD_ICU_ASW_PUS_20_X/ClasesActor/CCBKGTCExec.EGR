@@ -1,0 +1,230 @@
+[Version Actor SW]
+5
+0
+0
+0
+0
+[Modificado]
+1
+1
+0
+[Estructura]
+[Version Estructura]
+3
+[Parametro]
+NULL
+ 
+ 
+[FinParametro]
+[Stack]
+1
+[FinStack]
+[Puertos]
+2
+[Version Puerto]
+0
+BKGTCExecCtrl
+0
+1
+0
+[Version Grafico Puerto]
+0
+44
+4
+CPBKGTCExecCtrl
+[Version Puerto]
+0
+TMChannelCtrl
+1
+1
+0
+[Version Grafico Puerto]
+0
+43
+93
+CPTMChannelCtrl
+[FinPuertos]
+[ActoresComponente]
+0
+[FinActoresComponente]
+[Uniones]
+0
+[FinUniones]
+[NumTimers]
+0
+[FinNumTimers]
+[NumMsgDef]
+10
+[FinNumMsgDef]
+[FinEstructura]
+[Comportamiento]
+[Version Comportamiento]
+3
+0
+[Pools]
+1
+[Version PoolDatosMens]
+0
+EDROOMPoolCDTMList
+CDTMList
+10
+[Modulos]
+1
+[Version Modulo]
+1
+icuasw_pus_services_iface
+
+v1
+
+1
+0
+[Eventos]
+0
+[Maquina de Estados]
+[Version Maquina de Estados]
+1
+Top
+NULL
+[Subestados]
+2
+[Version SubEstados]
+3
+I
+;
+;
+;
+;
+;
+0
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+73 73 55 55
+[FinObjetoGrafico]
+Ready
+;
+;
+;
+;
+;
+1
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+217 208 186 133
+[FinObjetoGrafico]
+[PuntosEleccion]
+0
+[Version PuntosEleccion]
+2
+[Transiciones]
+2
+[Version Transicion]
+5
+Init
+I
+OSubEstI
+Ready
+DSubEst
+;
+[Trigger]
+EDROOMsl
+EDROOMStart
+true
+ 
+ 
+ 
+;
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+118 119 217 218 0
+[FinGraficoTransicion]
+ExecTC
+Ready
+OSubEst
+Ready
+DSubEst
+;
+[Trigger]
+BKGTCExecCtrl
+SBKGTC
+true
+ 
+ 
+ 
+FExecBKGTC();
+;
+FInvokeTxTMList();
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+217 313 217 255 6
+[FinGraficoTransicion]
+[VariablesConstantes]
+1
+[Version VariYConst]
+0
+VCurrentTMList
+CDTMList
+
+Variable
+0
+[Metodos]
+2
+[Version Metodos]
+21
+MsgDataHandler
+FExecBKGTC()
+0
+0
+0
+0
+1
+
+6
+	
+		// Data access
+	
+	// ... =varSBKGTC;
+CDEventList TCExecEventList;
+PUS_BKGTCExecutor::ExecTC(varSBKGTC,VCurrentTMList,TCExecEventList);
+[ServiceRequest]
+Msg->data
+BKGTCExecCtrl
+SBKGTC
+CDTCHandler
+EDROOMprioVeryHigh
+InvokeMsg
+FInvokeTxTMList()
+0
+0
+0
+0
+1
+
+5
+	
+		// Complete Data 
+	
+	*pSTxTM_Data=VCurrentTMList;
+	VCurrentTMList.Clear();
+[ServiceRequest]
+invoke
+TMChannelCtrl
+STxTM
+CDTMList
+EDROOMprioVeryHigh
+[MaquinasSubEstados]
+0
+[FinMaquinasSubEstados]
+[Fin Maquina de Estados]
+[FinComportamiento]
