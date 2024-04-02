@@ -297,7 +297,7 @@ FFwdHK_FDIRTC();
 538 344 322 255 3
 [FinGraficoRama]
 FwdToBKGTCExec
-G()
+GFwdToBKGTCExec()
 Ready
 DSubEst
 ;
@@ -305,7 +305,7 @@ DSubEst
  
 
 ;
-;
+FFwdToBKGTVExec();
 ;
 ;
 [GraficoRama]
@@ -410,7 +410,7 @@ CDTMList
 Variable
 0
 [Metodos]
-11
+12
 [Version Metodos]
 21
 BasicAction
@@ -533,6 +533,16 @@ GAcceptTC()
 1
 return VCurrentTC.IsAccepted();
 Guard
+GFwdToBKGTCExec()
+0
+0
+0
+0
+1
+ 
+1
+return VCurrentTC.IsBKGTC();
+Guard
 GFwdToHK_FDIR()
 0
 0
@@ -552,16 +562,25 @@ GToReboot()
  
 1
 return VCurrentTC.IsRebootTC();
-Guard
-GFwdToBKGTCExec()
+SendMsg
+FFwdToBKGTVExec()
 0
 0
 0
 0
 1
 
-1
-return VCurrentTC.IsBKGTC();
+4
+	
+		// Complete Data 
+	
+	*pSBKGTC_Data=VCurrentTC;
+[ServiceRequest]
+send
+BKGTCExecCtrl
+SBKGTC
+CDTCHandler
+EDROOMprioNormal
 [MaquinasSubEstados]
 0
 [FinMaquinasSubEstados]

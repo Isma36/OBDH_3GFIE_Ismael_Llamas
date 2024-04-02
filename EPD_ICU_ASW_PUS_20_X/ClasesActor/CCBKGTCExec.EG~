@@ -73,11 +73,11 @@ CDTMList
 [Version Modulo]
 1
 icuasw_pus_services_iface
-
+ 
 v1
-
+ 
 1
-0
+1
 [Eventos]
 0
 [Maquina de Estados]
@@ -189,7 +189,7 @@ FExecBKGTC()
 0
 0
 1
-
+ 
 6
 	
 		// Data access
@@ -210,7 +210,7 @@ FInvokeTxTMList()
 0
 0
 1
-
+ 
 5
 	
 		// Complete Data 
