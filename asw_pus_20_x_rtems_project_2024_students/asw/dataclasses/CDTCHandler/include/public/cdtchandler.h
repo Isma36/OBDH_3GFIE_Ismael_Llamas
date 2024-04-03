@@ -115,7 +115,7 @@ protected:
 
 	void SetExecCtrlAsBKGTC() {
 
-		mTCExecCtrl = ExecCtrlBKGTC
+		mTCExecCtrl = ExecCtrlBKGTC;
 	}
 
 	/**
