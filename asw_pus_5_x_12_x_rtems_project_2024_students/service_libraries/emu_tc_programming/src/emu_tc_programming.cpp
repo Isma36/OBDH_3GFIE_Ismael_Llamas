@@ -21,6 +21,8 @@
 
 #define FT_SOLO_EPD_ICU_Monitoring_0070
 
+#define FT_SOLO_EPD_ICU_Serv5_0080
+
 #ifdef FT_SOLO_EPD_ICU_SERV_17_0010
 
 EmuGSS_TCProgram17_1 prog_FT_0010_step_0(UNITIME_AFTER_POWER_ON + 6,
@@ -103,14 +105,14 @@ EmuGSS_TCProgram20_1 prog_FT_0060_step_1(FT_SOLO_EPD_ICU_SERV_20_0060_TIME_step1
 #define FT_0070_TIME_step2 (UNITIME_AFTER_POWER_ON + 20)
 #define FT_0070_TIME_step3 (UNITIME_AFTER_POWER_ON + 40)
 #define FT_0070_TIME_step4 (UNITIME_AFTER_POWER_ON + 60)
-
+#define FT_0070_TIME_step5 (UNITIME_AFTER_POWER_ON + 65)
 
 EmuGSS_TCProgram12_5 prog_FT_0070_step_0(FT_0070_TIME_step0,
 		"FT_SOLO_EPD_ICU_Monitoring_0070 step 0, Config PMODID 0 for monitoring PID 1",
 		0, 1, 5, 1, 0x4000, 10, 0x4001);
 
 EmuGSS_TCProgram12_1 prog_FT_0070_step_1(FT_0070_TIME_step1,
-		"FT_SOLO_EPD_ICU_Monitoring_0070 step 1, Enable Monitoring PMODID 0", 0);
+		"FT_SOLO_EPD_ICU_Monitoring_0070 step 1, Enable Monitoring PMONID 0", 0);
 
 EmuGSS_TCProgram20_3 prog_FT_0070_step_2(FT_0070_TIME_step2,
 		"FT_SOLO_EPD_ICU_Monitoring_0070 step 2, Update PID 1 to 99", 1, 99);
@@ -121,5 +123,26 @@ EmuGSS_TCProgram20_3 prog_FT_0070_step_3(FT_0070_TIME_step3,
 EmuGSS_TCProgram20_3 prog_FT_0070_step_4(FT_0070_TIME_step4,
 		"FT_SOLO_EPD_ICU_Monitoring_0070 step 4, Update PID 1 to 0", 1, 0);
 
+EmuGSS_TCProgram12_6 prog_FT_0070_step_5(FT_0070_TIME_step5,
+		"FT_SOLO_EPD_ICU_Monitoring_0070 step 5, Delete PMODID 0 for monitoring PID 1",
+		0);
+
+
 #endif
 
+
+#ifdef FT_SOLO_EPD_ICU_Serv5_0080
+
+#define FT_0080_TIME_step0 (UNITIME_AFTER_POWER_ON + 20)
+#define FT_0080_TIME_step1 (UNITIME_AFTER_POWER_ON + 40)
+//Se dispone de la siguientes clases, además de las del servicio 12 y 20 que necesitarás utilizar
+
+// Primero deshabilito uno porque están habilitados por defecto según las primeras líneas del servicio 5
+EmuGSS_TCProgram5_6 prog_FT_0080_TIME_step0(FT_0080_TIME_step0,
+		"FT_SOLO_EPD_ICU_Serv5_0080 step 0, DISABLE report generation for ennumerated: 0x00000007",1);
+
+// Después vuelvo a habilitar
+EmuGSS_TCProgram5_5 prog_FT_0080_TIME_step1(FT_0080_TIME_step1,
+		"FT_SOLO_EPD_ICU_Serv5_0080 step 1, ENABLE report generation for ennumerated: 0x00000007",1);
+
+#endif
