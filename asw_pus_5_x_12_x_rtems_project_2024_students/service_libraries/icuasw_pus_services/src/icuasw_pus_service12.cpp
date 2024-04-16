@@ -98,6 +98,8 @@ void PUSService12::Exec12_5TC(CDTCHandler &tcHandler, CDTMList &tmList) {
 				PUSService12::PARAMLimitDefinition[PMONID].highLimitRID =
 						highlimitRID;
 
+				PUSService1::BuildTM_1_7(tcHandler, tmList);
+
 			} else {
 
 				PUSService1::BuildTM_1_8_TC_20_X_PIDNotValid(tcHandler, tmList,

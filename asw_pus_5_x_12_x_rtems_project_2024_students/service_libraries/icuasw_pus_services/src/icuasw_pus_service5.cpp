@@ -9,7 +9,7 @@
 
 //Enable Config, the events defined are enabled by default
 uint32_t PUSService5::RIDEnableConfig[4] = { 0x00000007, 0x0000000F, 0x00000000,
-		0x0000FFFF };
+		0x0000FFFF }; // Ofsets: 7,15,0,31
 
 uint8_t PUSService5::GetRIDEnableConfigIndex(uint16_t RID) {
 
@@ -184,13 +184,19 @@ void PUSService5::Exec5_6TC(CDTCHandler &tcHandler, CDTMList &tmList) {
 
 	offset = PUSService5::GetRIDEnableConfigOffset(RID);
 
+
 	RIDEnableConfig[index] &= ~(1 << offset);
 
 	if (IsIndexValid(index)) {
 
+		if (IsRIDEnabled(RID)){
 
+			PUSService1::BuildTM_1_7(tcHandler, tmList);
 
-		PUSService1::BuildTM_1_7(tcHandler, tmList);
+		} else {
+
+			PUSService1::BuildTM_1_8_TC_5_X_RIDUnknown(tcHandler, tmList, RID);
+		}
 
 	} else {
 
@@ -210,6 +216,9 @@ void PUSService5::ExecTC(CDTCHandler &tcHandler, CDTMList &tmList) {
 		break;
 	//TODO Complete for enable [5,6] Execution
 
+	case (6):
+		Exec5_6TC(tcHandler, tmList);
+		break;
 
 	default:
 		//This must be not possible
