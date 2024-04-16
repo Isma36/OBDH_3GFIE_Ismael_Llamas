@@ -49,6 +49,7 @@ protected:
   static void Exec12_5TC( CDTCHandler &tcHandler, CDTMList &tmList);
   static void Exec12_1TC( CDTCHandler &tcHandler, CDTMList &tmList);
   static void Exec12_2TC( CDTCHandler &tcHandler, CDTMList &tmList);
+  static void Exec12_6TC( CDTCHandler &tcHandler, CDTMList &tmList);
 };
 
 #endif

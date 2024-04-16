@@ -43,6 +43,9 @@ void PUSService12::ExecTC(CDTCHandler &tcHandler, CDTMList &tmList) {
 	case (5):
 		Exec12_5TC(tcHandler, tmList);
 		break;
+	case (6):
+		Exec12_6TC(tcHandler, tmList);
+		break;
 
 	default:
 		break;
@@ -94,6 +97,8 @@ void PUSService12::Exec12_5TC(CDTCHandler &tcHandler, CDTMList &tmList) {
 
 				PUSService12::PARAMLimitDefinition[PMONID].highLimitRID =
 						highlimitRID;
+
+				PUSService1::BuildTM_1_7(tcHandler, tmList);
 
 			} else {
 
@@ -148,6 +153,38 @@ void PUSService12::Exec12_2TC(CDTCHandler &tcHandler, CDTMList &tmList) {
 	if (PMONID < MAX_Number_PMON_IDs) {
 		if (PARAMMonitoringConfig[PMONID].status != MonitorUnselected) {
 			PARAMMonitoringConfig[PMONID].enabled = false;
+
+			PUSService1::BuildTM_1_7(tcHandler, tmList);
+		} else {
+
+			PUSService1::BuildTM_1_8_TC_12_X_PMONIDUndefined(tcHandler, tmList,
+					PMONID);
+
+		}
+
+	}
+}
+
+void PUSService12::Exec12_6TC(CDTCHandler &tcHandler, CDTMList &tmList) {
+
+	uint16_t PMONID;
+
+	PMONID = tcHandler.GetNextUInt16();
+
+	if (PMONID < MAX_Number_PMON_IDs) {
+		if (PARAMMonitoringConfig[PMONID].status != MonitorUnselected) {
+			// Reset the monitoring configuration to default values
+			PARAMMonitoringConfig[PMONID].PID = 0;
+			PARAMMonitoringConfig[PMONID].status = MonitorUnselected;
+			PARAMMonitoringConfig[PMONID].enabled = false;
+			PARAMMonitoringConfig[PMONID].interval = 0;
+			PARAMMonitoringConfig[PMONID].intervalControl = 0;
+
+			// Reset the limit definitions to default values
+			PARAMLimitDefinition[PMONID].lowLimit = 0;
+			PARAMLimitDefinition[PMONID].lowLimitRID = 0;
+			PARAMLimitDefinition[PMONID].highLimit = 0;
+			PARAMLimitDefinition[PMONID].highLimitRID = 0;
 
 			PUSService1::BuildTM_1_7(tcHandler, tmList);
 		} else {
