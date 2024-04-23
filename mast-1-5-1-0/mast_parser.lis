@@ -1,0 +1,208 @@
+Initializing error report...
+ 1   Processing_Resource (
+ 2      Type                   => Regular_Processor,
+ 3      Name                   => leon3,
+ 4      Max_Interrupt_Priority => 16,
+ 5      Min_Interrupt_Priority => 1,
+ 6      Worst_ISR_Switch       => 1.000E-07,
+ 7      Avg_ISR_Switch         => 1.000E-07,
+ 8      Best_ISR_Switch        => 1.000E-07,
+ 9      System_Timer           => 
+ 10        ( Type           => Ticker,
+ 11          Worst_Overhead => 1.000E-05,
+ 12          Avg_Overhead   => 1.000E-05,
+ 13          Best_Overhead  => 1.000E-05,
+ 14          Period         => 0.010000),
+ 15     Speed_Factor           => 1.00);
+ 17  Scheduler (
+ 18     Type            => Primary_Scheduler,
+ 19     Name            => rtems,
+ 20     Host            => leon3,
+ 21     Policy          => 
+ 22        ( Type                 => Fixed_Priority,
+ 23          Worst_Context_Switch => 1.000E-06,
+ 24          Avg_Context_Switch   => 1.000E-06,
+ 25          Best_Context_Switch  => 1.000E-06,
+ 26          Max_Priority         => 16,
+ 27          Min_Priority         => 1));
+ 29  Scheduling_Server (
+ 30     Type                       => Regular,
+ 31     Name                       => tmchannelctrl,
+ 32     Server_Sched_Parameters    => 
+ 33        ( Type         => Fixed_Priority_Policy,
+ 34          The_Priority => 5,
+ 35          Preassigned  => YES),
+ 36     Scheduler                  => rtems);
+ 38  Scheduling_Server (
+ 39     Type                       => Regular,
+ 40     Name                       => epdmanager,
+ 41     Server_Sched_Parameters    => 
+ 42        ( Type         => Fixed_Priority_Policy,
+ 43          The_Priority => 4,
+ 44          Preassigned  => YES),
+ 45     Scheduler                  => rtems);
+ 47  Scheduling_Server (
+ 48     Type                       => Regular,
+ 49     Name                       => hkfdirmng,
+ 50     Server_Sched_Parameters    => 
+ 51        ( Type         => Fixed_Priority_Policy,
+ 52          The_Priority => 3,
+ 53          Preassigned  => YES),
+ 54     Scheduler                  => rtems);
+ 56  Scheduling_Server (
+ 57     Type                       => Regular,
+ 58     Name                       => bkgtcexec,
+ 59     Server_Sched_Parameters    => 
+ 60        ( Type         => Fixed_Priority_Policy,
+ 61          The_Priority => 1,
+ 62          Preassigned  => YES),
+ 63     Scheduler                  => rtems);
+ 65  Scheduling_Server (
+ 66     Type                       => Regular,
+ 67     Name                       => irq18handler,
+ 68     Server_Sched_Parameters    => 
+ 69        ( Type         => Interrupt_FP_Policy,
+ 70          The_Priority => 6),
+ 71     Scheduler                  => rtems);
+ 73  Scheduling_Server (
+ 74     Type                       => Regular,
+ 75     Name                       => irq18tophalftask,
+ 76     Server_Sched_Parameters    => 
+ 77        ( Type         => Fixed_Priority_Policy,
+ 78          The_Priority => 5,
+ 79          Preassigned  => YES),
+ 80     Scheduler                  => rtems);
+ 82  Scheduling_Server (
+ 83     Type                       => Regular,
+ 84     Name                       => irq10bottomhalftask,
+ 85     Server_Sched_Parameters    => 
+ 86        ( Type         => Fixed_Priority_Policy,
+ 87          The_Priority => 5,
+ 88          Preassigned  => YES),
+ 89     Scheduler                  => rtems);
+ 91  Shared_Resource (
+ 92     Type     => Priority_Inheritance_Resource,
+ 93     Name     => evactionqueue);
+ 95  Operation (
+ 96     Type                       => Simple,
+ 97     Name                       => irq18tophalf,
+ 98     Worst_Case_Execution_Time  => 1.000E-04,
+ 99     Avg_Case_Execution_Time    => 1.000E-04,
+ 100    Best_Case_Execution_Time   => 1.000E-04);
+ 102 Operation (
+ 103    Type                       => Simple,
+ 104    Name                       => irq18bottomhalf,
+ 105    Worst_Case_Execution_Time  => 1.000E-04,
+ 106    Avg_Case_Execution_Time    => 1.000E-04,
+ 107    Best_Case_Execution_Time   => 1.000E-04);
+ 109 Operation (
+ 110    Type                       => Simple,
+ 111    Name                       => fgettc,
+ 112    Worst_Case_Execution_Time  => 0.001000,
+ 113    Avg_Case_Execution_Time    => 0.001000,
+ 114    Best_Case_Execution_Time   => 0.001000);
+ 116 Operation (
+ 117    Type                       => Simple,
+ 118    Name                       => fmngtcrejection,
+ 119    Worst_Case_Execution_Time  => 2.000E-04,
+ 120    Avg_Case_Execution_Time    => 2.000E-04,
+ 121    Best_Case_Execution_Time   => 2.000E-04);
+ 123 Operation (
+ 124    Type                       => Simple,
+ 125    Name                       => finvoketxtmlist,
+ 126    Worst_Case_Execution_Time  => 1.000E-04,
+ 127    Avg_Case_Execution_Time    => 1.000E-04,
+ 128    Best_Case_Execution_Time   => 1.000E-04);
+ 130 Operation (
+ 131    Type                       => Simple,
+ 132    Name                       => ftxtmlist,
+ 133    Worst_Case_Execution_Time  => 2.000E-04,
+ 134    Avg_Case_Execution_Time    => 2.000E-04,
+ 135    Best_Case_Execution_Time   => 2.000E-04);
+ 137 Operation (
+ 138    Type                       => Simple,
+ 139    Name                       => freplytmqueued,
+ 140    Worst_Case_Execution_Time  => 1.000E-04,
+ 141    Avg_Case_Execution_Time    => 1.000E-04,
+ 142    Best_Case_Execution_Time   => 1.000E-04);
+ 144 Operation (
+ 145    Type                       => Simple,
+ 146    Name                       => fdohk_fdir,
+ 147    Worst_Case_Execution_Time  => 0.010000,
+ 148    Avg_Case_Execution_Time    => 0.010000,
+ 149    Best_Case_Execution_Time   => 0.010000);
+ 151 Operation (
+ 152    Type                       => Simple,
+ 153    Name                       => ftriggerevaction,
+ 154    Worst_Case_Execution_Time  => 1.000E-04,
+ 155    Avg_Case_Execution_Time    => 1.000E-04,
+ 156    Best_Case_Execution_Time   => 1.000E-04,
+ 157    Shared_Resources_To_Lock   => 
+ 158       ( evactionqueue),
+ 159    Shared_Resources_To_Unlock => 
+ 160       ( evactionqueue));
+ 162 Operation (
+ 163    Type                     => Composite,
+ 164    Name                     => cop_tcrejection,
+ 165    Composite_Operation_List => 
+ 166       ( fgettc,
+ 167         fmngtcrejection,
+ 168         finvoketxtmlist));
+ 170 Operation (
+ 171    Type                     => Composite,
+ 172    Name                     => cop_txtm_reply,
+ 173    Composite_Operation_List => 
+ 174       ( ftxtmlist,
+ 175         freplytmqueued));
+ 177 Operation (
+ 178    Type                     => Composite,
+ 179    Name                     => cop_fdohk_fdir_tm,
+ 180    Composite_Operation_List => 
+ 181       ( fdohk_fdir,
+ 182         finvoketxtmlist));
+ 184 Transaction (
+ 185    Type            => regular,
+ 186    Name            => transnewrejectedtc,
+ 187    External_Events => 
+ 188       ( ( Type             => Bursty,
+ 189           Name             => ev_new_rejected_tc,
+ 190           Avg_Interarrival => 0.000,
+ 191           Distribution     => UNIFORM,
+ 192           Bound_Interval   => 1.000,
+ 193           Max_Arrivals     => 10)),
+ 194    Internal_Events => 
+ 195       ( ( Type => Regular,
+ 196           Name => dl_new_rejected_tc,
+ 197           Timing_Requirements => 
+ 198             ( Type             => Hard_Global_Deadline,
+ 199               Deadline         => 1.000,
+ 200               Referenced_Event => ev_new_rejected_tc)),
+ 201         ( Type => Regular,
+ 202           Name => ev_irq18bottomhalf_signal),
+ 203         ( Type => Regular,
+ 204           Name => ev_rxtc_edroomirqsignal),
+ 205         ( Type => Regular,
+ 206           Name => ev_stxtmlist)),
+ 207    Event_Handlers  => 
+ 208       ( (Type               => Activity,
+ 209          Input_Event        => ev_rxtc_edroomirqsignal,
+ 210          Output_Event       => ev_stxtmlist,
+ 211          Activity_Operation => cop_tcrejection,
+ 212          Activity_Server    => epdmanager),
+ 213         (Type               => Activity,
+ 214          Input_Event        => ev_irq18bottomhalf_signal,
+ 215          Output_Event       => ev_rxtc_edroomirqsignal,
+ 216          Activity_Operation => irq18bottomhalf,
+ 217          Activity_Server    => irq10bottomhalftask),
+ 218         (Type               => Activity,
+ 219          Input_Event        => ev_new_rejected_tc,
+ 220          Output_Event       => ev_irq18bottomhalf_signal,
+ 221          Activity_Operation => irq18tophalf,
+ 222          Activity_Server    => irq18handler),
+ 223         (Type               => Activity,
+ 224          Input_Event        => ev_stxtmlist,
+ 225          Output_Event       => dl_new_rejected_tc,
+ 226          Activity_Operation => cop_txtm_reply,
+ 227          Activity_Server    => tmchannelctrl)));
+ 228 
+

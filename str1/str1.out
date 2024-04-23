@@ -1,0 +1,67 @@
+Real_Time_Situation (
+   Generation_Tool    => "MAST Schedulability Analysis, version 1.5.1.0",
+   Generation_Profile => "C:\Users\ismael.llamas\Documents\mast-1-5-1-0\mast_analysis.exe default C:\Users\ismael.llamas\Documents\str1\str1 C:\Users\ismael.llamas\Documents\str1\str1.out",
+   Generation_Date    => 2024-04-23T18:52:19);
+
+Transaction (
+   Name     => transnewrejectedtc,
+   Results  => 
+       ((Type                          => Timing_Result,
+         Event_Name                    => dl_new_rejected_tc,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => ev_new_rejected_tc,
+              Time_Value       => 0.024152)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => ev_new_rejected_tc,
+              Time_Value       => 0.001806)),
+         Jitters                       => 
+            ((Referenced_Event => ev_new_rejected_tc,
+              Time_Value       => 0.022346))),
+        (Type                          => Timing_Result,
+         Event_Name                    => ev_irq18bottomhalf_signal,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => ev_new_rejected_tc,
+              Time_Value       => 0.001012)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => ev_new_rejected_tc,
+              Time_Value       => 1.002E-04)),
+         Jitters                       => 
+            ((Referenced_Event => ev_new_rejected_tc,
+              Time_Value       => 9.118E-04))),
+        (Type                          => Timing_Result,
+         Event_Name                    => ev_rxtc_edroomirqsignal,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => ev_new_rejected_tc,
+              Time_Value       => 0.005062)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => ev_new_rejected_tc,
+              Time_Value       => 2.022E-04)),
+         Jitters                       => 
+            ((Referenced_Event => ev_new_rejected_tc,
+              Time_Value       => 0.004860))),
+        (Type                          => Timing_Result,
+         Event_Name                    => ev_stxtmlist,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => ev_new_rejected_tc,
+              Time_Value       => 0.021122)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => ev_new_rejected_tc,
+              Time_Value       => 0.001504)),
+         Jitters                       => 
+            ((Referenced_Event => ev_new_rejected_tc,
+              Time_Value       => 0.019618)))));
+
+Processing_Resource (
+   Name     => leon3,
+   Results  => 
+       ((Type   => Utilization,
+         Total  => 1.91%)));
+
