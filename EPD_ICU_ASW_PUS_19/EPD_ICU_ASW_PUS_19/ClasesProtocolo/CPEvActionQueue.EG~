@@ -3,29 +3,21 @@
 0
 1
 0
-18
+10
 1
 EDROOMprioVeryHigh
-5
-#ifdef NEXYS_PLATFORM 
- 
-EDROOMIRQ18BottomHalfSignal=EDROOMVarIRQ18.HandleIRQ();
- 
-#endif
+0
 1
 1
 0
-5
-#ifndef NEXYS_PLATFORM 
- 
-SC_Channel_GetNextTC(&EDROOMVarIRQ18);
- 
-#endif
+2
+EDROOMIRQ10SendMsgToCmp
+ =PUSService19::ExtractEvActionFromQueue(EDROOMVarIRQ10);
 1
 0
 10
 0
-0
+1
 1
 [Version Mensaje]
 1
@@ -34,9 +26,9 @@ SC_Channel_GetNextTC(&EDROOMVarIRQ18);
 EDROOMIRQsignal
 [Version Dato]
 1
-CDTCHandler
+CDEvAction
 C:\Users\ismae\OneDrive - Universidad de Alcala\Escritorio\UNI\GitHub\OBDH_3GFIE_Ismael_Llamas\EPD_ICU_ASW_PUS_19\EPD_ICU_ASW_PUS_19\
-es.uah.aut.srg.edroom.mclev.data_sai.cdtchandler
+es.uah.aut.srg.edroom.mclev.data_sai.cdevaction
 v1
 0
 0

@@ -5,8 +5,8 @@
 0
 0
 [Modificado]
-0
-0
+1
+1
 0
 [Estructura]
 [Version Estructura]
@@ -20,7 +20,7 @@ NULL
 1
 [FinStack]
 [Puertos]
-4
+5
 [Version Puerto]
 0
 TMChannelCtrl
@@ -65,6 +65,17 @@ BKGExecCtrl
 82
 93
 CPBKGExecCtrl
+[Version Puerto]
+0
+EvActionQueue
+0
+1
+1
+[Version Grafico Puerto]
+0
+28
+37
+CPEvActionQueue
 [FinPuertos]
 [ActoresComponente]
 0
@@ -100,7 +111,7 @@ CDTCHandler
 [Version Modulo]
 1
 icuasw_pus_services_iface
- 
+
 v1
  
 1
@@ -114,11 +125,16 @@ v1
 1
 1
 [Eventos]
-1
+2
 [Event]
 [Version]
 1
 EvIRQRxTC
+External
+[Event]
+[Version]
+1
+EvIRQEvActionQueue
 External
 [Maquina de Estados]
 [Version Maquina de Estados]
@@ -314,7 +330,7 @@ FFwdToBKGTCExec();
 553 351 322 326 3
 [FinGraficoRama]
 [Transiciones]
-3
+4
 [Version Transicion]
 5
 Init
@@ -386,6 +402,29 @@ DPEleccion
 0
 558 565 553 351 3
 [FinGraficoTransicion]
+NewEvAction
+Ready
+OSubEst
+ValidTC
+DSubEst
+;
+[Trigger]
+EvActionQueue
+EDROOMIRQsignal
+true
+ 
+ 
+ 
+FGetEvAction();
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+322 450 493 565 0
+[FinGraficoTransicion]
 [VariablesConstantes]
 3
 [Version VariYConst]
@@ -410,7 +449,7 @@ CDTMList
 Variable
 0
 [Metodos]
-12
+13
 [Version Metodos]
 21
 BasicAction
@@ -581,6 +620,27 @@ GToReboot()
  
 1
 return VCurrentTC.IsRebootTC();
+MsgDataHandler
+FGetEvAction()
+0
+0
+0
+0
+1
+
+6
+	
+		// Data access
+	
+	// ... =varEDROOMIRQsignal;
+CDEvAction & varEDROOMIRQSignal = *(CDEvAction *) Msg->data;
+PUSService19::GetEvActionTCHandler(varEDROOMIRQSignal, VCurrentTC); 
+[ServiceRequest]
+Msg->data
+EvActionQueue
+EDROOMIRQsignal
+CDEvAction
+
 [MaquinasSubEstados]
 0
 [FinMaquinasSubEstados]

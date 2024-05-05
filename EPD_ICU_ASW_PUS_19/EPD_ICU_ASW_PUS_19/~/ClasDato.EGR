@@ -1,9 +1,5 @@
 [Version Lista Datos]
 2
-CDTCDescriptor
-0
-es.uah.aut.srg.edroom.mclev.data_sai.cdtcdescriptor
-v1
 CDEventList
 0
 es.uah.aut.srg.edroom.mclev.data_sai.cdeventlist
@@ -12,14 +8,6 @@ CDTMList
 0
 es.uah.aut.srg.edroom.mclev.data_sai.cdtmlist
 v1
-CDRecovAction
-0
-es.uah.aut.srg.edroom.mclev.data_sai.cdrecovaction
-v1
-CDSensorTMBufferStatus
-0
-es.uah.aut.srg.edroom.mclev.data_sai.cdsensortmbufferstatus
-v1
 CDTCHandler
 0
 es.uah.aut.srg.edroom.mclev.data_sai.cdtchandler
@@ -27,5 +15,9 @@ v1
 CDTMHandler
 0
 es.uah.aut.srg.edroom.mclev.data_sai.cdtmhandler
+v1
+CDEvAction
+1
+es.uah.aut.srg.edroom.mclev.data_sai.cdevaction
 v1
 //FINDATOS

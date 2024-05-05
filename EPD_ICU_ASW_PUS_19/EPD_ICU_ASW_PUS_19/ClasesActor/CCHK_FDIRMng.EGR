@@ -129,14 +129,61 @@ Ready
 [ObjetoGrafico]
 [Version Objeto Grafico]
 0
-240 205 150 152
+156 233 150 152
 [FinObjetoGrafico]
 [PuntosEleccion]
-0
+1
 [Version PuntosEleccion]
 2
+DoHK_FDIR
+1
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+407 265 35 35
+[FinObjetoGrafico]
+DoHK_FDIR
+1
+[Ramas]
+2
+[Version Ramas]
+5
+PendingEvAction
+GPendingEvAction()
+Ready
+DSubEst
+FTriggerEvAction();
+
+ 
+
+;
+;
+;
+;
+[GraficoRama]
+[Version GraficoRama]
+0
+407 282 306 287 2
+[FinGraficoRama]
+NoEvAction
+true
+Ready
+DSubEst
+;
+
+ 
+
+;
+;
+;
+;
+[GraficoRama]
+[Version GraficoRama]
+0
+411 270 306 256 3
+[FinGraficoRama]
 [Transiciones]
-3
+4
 [Version Transicion]
 5
 Init
@@ -160,9 +207,9 @@ true
 [GraficoTransicion]
 [Version GraficoTransicion]
 0
-112 124 240 260 0
+112 124 156 288 0
 [FinGraficoTransicion]
-DoHK_FDIR
+DoHK_FDIRantiguo
 Ready
 OSubEst
 Ready
@@ -183,7 +230,7 @@ FInvokeTxTMList();
 [GraficoTransicion]
 [Version GraficoTransicion]
 0
-258 205 372 205 4
+174 233 288 233 4
 [FinGraficoTransicion]
 ExecTC
 Ready
@@ -206,7 +253,30 @@ FInvokeTxTMList();
 [GraficoTransicion]
 [Version GraficoTransicion]
 0
-240 272 240 339 6
+156 300 156 367 6
+[FinGraficoTransicion]
+DoHK_FDIR
+Ready
+OSubEst
+DoHK_FDIR
+DPEleccion
+FDoHK_FDIR();
+[Trigger]
+HK_FDIRTimer
+EDROOMSignalTimeout
+true
+ 
+ 
+ 
+;
+;
+FInvokeTxTMList();
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+306 369 412 295 1
 [FinGraficoTransicion]
 [VariablesConstantes]
 2
@@ -225,7 +295,7 @@ Pr_Time
 Variable
 0
 [Metodos]
-4
+6
 [Version Metodos]
 21
 Inform
@@ -236,18 +306,19 @@ FDoHK_FDIR()
 0
 1
  
-6
+7
  
 VNextTimeout+= Pr_Time(1,0); // Add X sec + Y microsec 
 time=VNextTimeout; 
 PUSService3::DoHK(VCurrentTMList);	
 PUSService12::DoMonitoring(eventList);
 PUSService5::BuildEventListTMs(eventList, VCurrentTMList);
+PUSService19::ManageEventActions(eventList); 
 [ServiceRequest]
 InformAt
 HK_FDIRTimer
 EDROOMSignalTimeout
-CDTMList
+CDTCHandler
 EDROOMprioNormal
 MsgDataHandler
 FExecHK_FDIR_TC()
@@ -310,6 +381,26 @@ TMChannelCtrl
 STxTM
 CDTMList
 EDROOMprioVeryHigh
+BasicAction
+FTriggerEvAction()
+0
+0
+0
+0
+1
+ 
+1
+ PUSService19::TriggerEvActionExecution();
+Guard
+GPendingEvAction()
+0
+0
+0
+0
+1
+ 
+1
+ return (!PUSService19::IsEvActionQueueEmpty());
 [MaquinasSubEstados]
 0
 [FinMaquinasSubEstados]

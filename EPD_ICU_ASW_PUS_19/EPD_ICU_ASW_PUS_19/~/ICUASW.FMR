@@ -19,9 +19,9 @@ ICUASW
 [CurrentTarget]
 0
 [MESP Directory]
-Z:\home\opolo70\OBDH-workspace\asw_pus_3_x_rtems_project_2024_students\asw
+C:\Users\ismael.llamas\Documents\GitHub\OBDH_3GFIE_Ismael_Llamas\asw_pus_5_x_12_x_rtems_project_2024_students\asw
 [MESP main Directory]
-Z:\home\opolo70\OBDH-workspace\asw_pus_3_x_rtems_project_2024_students
+C:\Users\ismael.llamas\Documents\GitHub\OBDH_3GFIE_Ismael_Llamas\asw_pus_5_x_12_x_rtems_project_2024_students
 [MESP main prototype]
 rtems_task Init (uint32_t arg)
 [MESP main return]
@@ -100,13 +100,29 @@ EDROOMprioHigh
 CCEPDManager
 ICUASW
 [EventsDeployment]
-1
+2
 [EventDeployment]
 [Version]
 1
 EvIRQRxTC
 External
 2
+1
+0
+0
+[CEgRoomDeadLine]
+[Version]
+1
+-1
+-1
+0
+0
+[EventDeployment]
+[Version]
+1
+EvIRQEvActionQueue
+External
+47
 1
 0
 0

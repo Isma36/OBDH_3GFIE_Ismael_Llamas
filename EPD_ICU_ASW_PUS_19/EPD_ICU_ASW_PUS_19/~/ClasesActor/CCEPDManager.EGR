@@ -20,7 +20,7 @@ NULL
 1
 [FinStack]
 [Puertos]
-4
+5
 [Version Puerto]
 0
 TMChannelCtrl
@@ -62,9 +62,20 @@ BKGExecCtrl
 0
 [Version Grafico Puerto]
 0
-74
+82
 93
 CPBKGExecCtrl
+[Version Puerto]
+0
+EvActionQueue
+0
+1
+1
+[Version Grafico Puerto]
+0
+31
+48
+CPEvActionQueue
 [FinPuertos]
 [ActoresComponente]
 0
@@ -114,11 +125,16 @@ v1
 1
 1
 [Eventos]
-1
+2
 [Event]
 [Version]
 1
 EvIRQRxTC
+External
+[Event]
+[Version]
+1
+EvIRQEvActionQueue
 External
 [Maquina de Estados]
 [Version Maquina de Estados]
@@ -242,7 +258,7 @@ FInvokeTxTMList();
 HandleTC
 0
 [Ramas]
-3
+4
 [Version Ramas]
 5
 ToReboot
@@ -295,6 +311,23 @@ FFwdHK_FDIRTC();
 [Version GraficoRama]
 0
 538 344 322 255 3
+[FinGraficoRama]
+FwdToBKGTCExec
+GFwdToBKGTCExec()
+Ready
+DSubEst
+;
+ 
+ 
+ 
+;
+FFwdToBKGTCExec();
+;
+;
+[GraficoRama]
+[Version GraficoRama]
+0
+553 351 322 326 3
 [FinGraficoRama]
 [Transiciones]
 3
@@ -393,7 +426,7 @@ CDTMList
 Variable
 0
 [Metodos]
-10
+12
 [Version Metodos]
 21
 BasicAction
@@ -423,6 +456,25 @@ FFwdHK_FDIRTC()
 send
 HK_FDIRCtrl
 SHK_FDIR_TC
+CDTCHandler
+EDROOMprioNormal
+SendMsg
+FFwdToBKGTCExec()
+0
+0
+0
+0
+1
+ 
+4
+	
+		// Complete Data 
+	
+	*pSBKGTC_Data=VCurrentTC;  
+[ServiceRequest]
+send
+BKGExecCtrl
+SBKGTC
 CDTCHandler
 EDROOMprioNormal
 MsgDataHandler
@@ -515,6 +567,16 @@ GAcceptTC()
  
 1
 return VCurrentTC.IsAccepted();
+Guard
+GFwdToBKGTCExec()
+0
+0
+0
+0
+1
+ 
+1
+ return VCurrentTC.IsBKGTC();
 Guard
 GFwdToHK_FDIR()
 0
