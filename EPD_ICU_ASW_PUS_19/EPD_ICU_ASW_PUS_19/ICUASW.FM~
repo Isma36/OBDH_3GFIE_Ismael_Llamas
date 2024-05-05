@@ -19,9 +19,9 @@ ICUASW
 [CurrentTarget]
 0
 [MESP Directory]
-C:\Users\ismael.llamas\Documents\GitHub\OBDH_3GFIE_Ismael_Llamas\asw_pus_5_x_12_x_rtems_project_2024_students\asw
+C:\Users\ismae\OneDrive - Universidad de Alcala\Escritorio\UNI\GitHub\OBDH_3GFIE_Ismael_Llamas\asw_pus_19_x_rtems_project_2024_students\asw
 [MESP main Directory]
-C:\Users\ismael.llamas\Documents\GitHub\OBDH_3GFIE_Ismael_Llamas\asw_pus_5_x_12_x_rtems_project_2024_students
+C:\Users\ismae\OneDrive - Universidad de Alcala\Escritorio\UNI\GitHub\OBDH_3GFIE_Ismael_Llamas\asw_pus_19_x_rtems_project_2024_students
 [MESP main prototype]
 rtems_task Init (uint32_t arg)
 [MESP main return]

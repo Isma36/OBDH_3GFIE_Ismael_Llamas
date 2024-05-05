@@ -1,4 +1,4 @@
-#include <public/cchk_fdirmng_iface_v1.h>
+#include <public/ccbkgtcexec_iface_v1.h>
 
 // ***********************************************************************
 
@@ -10,33 +10,31 @@
 
 	// CONSTRUCTORS***********************************************
 
-CCHK_FDIRMng::EDROOM_CTX_Top_0::EDROOM_CTX_Top_0(CCHK_FDIRMng &act,
+CCBKGTCExec::EDROOM_CTX_Top_0::EDROOM_CTX_Top_0(CCBKGTCExec &act,
+	 CDEventList & EDROOMpVarVCurrentEvList,
 	 CDTMList & EDROOMpVarVCurrentTMList,
-	 Pr_Time & EDROOMpVarVNextTimeout,
 	 CEDROOMPOOLCDTMList & EDROOMpPoolCDTMList ):
 
 	EDROOMcomponent(act),
 	Msg(EDROOMcomponent.Msg),
 	MsgBack(EDROOMcomponent.MsgBack),
-	HK_FDIRCtrl(EDROOMcomponent.HK_FDIRCtrl),
+	BKGExecCtrl(EDROOMcomponent.BKGExecCtrl),
 	TMChannelCtrl(EDROOMcomponent.TMChannelCtrl),
-	HK_FDIRTimer(EDROOMcomponent.HK_FDIRTimer),
+	VCurrentEvList(EDROOMpVarVCurrentEvList),
 	VCurrentTMList(EDROOMpVarVCurrentTMList),
-	VNextTimeout(EDROOMpVarVNextTimeout),
 	EDROOMPoolCDTMList(EDROOMpPoolCDTMList)
 {
 }
 
-CCHK_FDIRMng::EDROOM_CTX_Top_0::EDROOM_CTX_Top_0(EDROOM_CTX_Top_0 &context):
+CCBKGTCExec::EDROOM_CTX_Top_0::EDROOM_CTX_Top_0(EDROOM_CTX_Top_0 &context):
 
 	EDROOMcomponent(context.EDROOMcomponent),
 	Msg(context.Msg),
 	MsgBack(context.MsgBack),
-	HK_FDIRCtrl(context.HK_FDIRCtrl),
+	BKGExecCtrl(context.BKGExecCtrl),
 	TMChannelCtrl(context.TMChannelCtrl),
-	HK_FDIRTimer(context.HK_FDIRTimer),
+	VCurrentEvList(context.VCurrentEvList),
 	VCurrentTMList(context.VCurrentTMList),
-	VNextTimeout(context.VNextTimeout),
 	EDROOMPoolCDTMList(context.EDROOMPoolCDTMList )
 {
 
@@ -44,7 +42,7 @@ CCHK_FDIRMng::EDROOM_CTX_Top_0::EDROOM_CTX_Top_0(EDROOM_CTX_Top_0 &context):
 
 	// EDROOMSearchContextTrans********************************************
 
-bool CCHK_FDIRMng::EDROOM_CTX_Top_0::EDROOMSearchContextTrans(
+bool CCBKGTCExec::EDROOM_CTX_Top_0::EDROOMSearchContextTrans(
 			TEDROOMTransId &edroomCurrentTrans)
 			{
 
@@ -68,57 +66,23 @@ bool CCHK_FDIRMng::EDROOM_CTX_Top_0::EDROOMSearchContextTrans(
 
 	// User-defined Functions   ****************************
 
-void	CCHK_FDIRMng::EDROOM_CTX_Top_0::FDoHK_FDIR()
-
-{
-   //Define absolute time
-  Pr_Time time;
- 
-VNextTimeout+= Pr_Time(1,0); // Add X sec + Y microsec 
-time=VNextTimeout; 
-PUSService3::DoHK(VCurrentTMList);	
-PUSService12::DoMonitoring(eventList);
-PUSService5::BuildEventListTMs(eventList, VCurrentTMList);
-PUSService19::ManageEventActions(eventList); 
-   //Program absolute timer 
-   HK_FDIRTimer.InformAt( time ); 
-}
-
-
-
-void	CCHK_FDIRMng::EDROOM_CTX_Top_0::FExecHK_FDIR_TC()
+void	CCBKGTCExec::EDROOM_CTX_Top_0::FExecBKGTC()
 
 {
    //Handle Msg->data
-  CDTCHandler & varSHK_FDIR_TC = *(CDTCHandler *)Msg->data;
+  CDTCHandler & varSBKGTC = *(CDTCHandler *)Msg->data;
+ 
 	
 		// Data access
 	
-   CDEventList TCExecEventList;  
-   PUS_HK_FDIR_TCExecutor::ExecTC(varSHK_FDIR_TC,VCurrentTMList,TCExecEventList);
+   CDEventList TCExecEventList;
+   PUS_BKGTCExecutor::ExecTC(varSBKGTC,VCurrentTMList,TCExecEventList);
 
 }
 
 
 
-void	CCHK_FDIRMng::EDROOM_CTX_Top_0::FInitHK_FDIR()
-
-{
-   //Define absolute time
-  Pr_Time time;
- 
-time.GetTime(); // Get current monotonic time   
-time+=Pr_Time(1,0); // Add X sec + Y microsec    
-VNextTimeout=time;
-PUSService3::Init(); //Init PUSService 3
- 
-   //Program absolute timer 
-   HK_FDIRTimer.InformAt( time ); 
-}
-
-
-
-void	CCHK_FDIRMng::EDROOM_CTX_Top_0::FInvokeTxTMList()
+void	CCBKGTCExec::EDROOM_CTX_Top_0::FTxTMList()
 
 {
    //Allocate data from pool
@@ -134,38 +98,18 @@ void	CCHK_FDIRMng::EDROOM_CTX_Top_0::FInvokeTxTMList()
 
 
 
-void	CCHK_FDIRMng::EDROOM_CTX_Top_0::FTriggerEvAction()
-
-{
-
- PUSService19::TriggerEvActionExecution();
-
-}
-
-
-
-bool	CCHK_FDIRMng::EDROOM_CTX_Top_0::GPendingEvAction()
-
-{
-
- return (!PUSService19::IsEvActionQueueEmpty());
-
-}
-
-
-
 	//********************************** Pools *************************************
 
 	//CEDROOMPOOLCDTMList
 
-CCHK_FDIRMng::EDROOM_CTX_Top_0::CEDROOMPOOLCDTMList::CEDROOMPOOLCDTMList(
+CCBKGTCExec::EDROOM_CTX_Top_0::CEDROOMPOOLCDTMList::CEDROOMPOOLCDTMList(
 			TEDROOMUInt32 elemCount,CDTMList* pMem,bool * pMemMarks):
 				CEDROOMProtectedMemoryPool(elemCount, pMem, pMemMarks,
 					sizeof(CDTMList))
 {
 }
 
-CDTMList *	CCHK_FDIRMng::EDROOM_CTX_Top_0::CEDROOMPOOLCDTMList::AllocData()
+CDTMList *	CCBKGTCExec::EDROOM_CTX_Top_0::CEDROOMPOOLCDTMList::AllocData()
 {
 	return(CDTMList*)CEDROOMProtectedMemoryPool::AllocData();
 }
@@ -182,11 +126,11 @@ CDTMList *	CCHK_FDIRMng::EDROOM_CTX_Top_0::CEDROOMPOOLCDTMList::AllocData()
 
 	// CONSTRUCTOR*************************************************
 
-CCHK_FDIRMng::EDROOM_SUB_Top_0::EDROOM_SUB_Top_0 (CCHK_FDIRMng&act
+CCBKGTCExec::EDROOM_SUB_Top_0::EDROOM_SUB_Top_0 (CCBKGTCExec&act
 	,CEDROOMMemory *pEDROOMMemory):
 		EDROOM_CTX_Top_0(act,
+			VCurrentEvList,
 			VCurrentTMList,
-			VNextTimeout,
 			EDROOMPoolCDTMList),
 		EDROOMPoolCDTMList(
 			10, pEDROOMMemory->poolCDTMList,
@@ -197,7 +141,7 @@ CCHK_FDIRMng::EDROOM_SUB_Top_0::EDROOM_SUB_Top_0 (CCHK_FDIRMng&act
 
 	//***************************** EDROOMBehaviour ********************************
 
-void CCHK_FDIRMng::EDROOM_SUB_Top_0::EDROOMBehaviour()
+void CCBKGTCExec::EDROOM_SUB_Top_0::EDROOMBehaviour()
 {
 
 	TEDROOMTransId edroomCurrentTrans;
@@ -216,51 +160,17 @@ void CCHK_FDIRMng::EDROOM_SUB_Top_0::EDROOMBehaviour()
 
 			//Next Transition is Init
 			case (Init):
-				//Execute Action 
-				FInitHK_FDIR();
 				//Next State is Ready
 				edroomNextState = Ready;
 				break;
 			//Next Transition is ExecTC
 			case (ExecTC):
 				//Msg->Data Handling 
-				FExecHK_FDIR_TC();
+				FExecBKGTC();
 				//Invoke Synchronous Message 
-				FInvokeTxTMList();
+				FTxTMList();
 				//Next State is Ready
 				edroomNextState = Ready;
-				break;
-			//To Choice Point DoHK_FDIR
-			case (DoHK_FDIR):
-
-				//Execute Action 
-				FDoHK_FDIR();
-				//Invoke Synchronous Message 
-				FInvokeTxTMList();
-				//Evaluate Branch PendingEvAction
-				if( GPendingEvAction() )
-				{
-					//Execute Action 
-					FTriggerEvAction();
-
-					//Branch taken is DoHK_FDIR_PendingEvAction
-					edroomCurrentTrans.localId =
-						DoHK_FDIR_PendingEvAction;
-
-					//Next State is Ready
-					edroomNextState = Ready;
-				 } 
-				//Default Branch NoEvAction
-				else
-				{
-
-					//Branch taken is DoHK_FDIR_NoEvAction
-					edroomCurrentTrans.localId =
-						DoHK_FDIR_NoEvAction;
-
-					//Next State is Ready
-					edroomNextState = Ready;
-				 } 
 				break;
 		}
 
@@ -292,7 +202,7 @@ void CCHK_FDIRMng::EDROOM_SUB_Top_0::EDROOMBehaviour()
 
 	// Context Init**********************************************
 
-void CCHK_FDIRMng::EDROOM_SUB_Top_0::EDROOMInit()
+void CCBKGTCExec::EDROOM_SUB_Top_0::EDROOMInit()
 {
 
 edroomCurrentState=I;
@@ -309,7 +219,7 @@ edroomCurrentState=I;
 
 
 
-TEDROOMTransId CCHK_FDIRMng::EDROOM_SUB_Top_0::EDROOMIArrival()
+TEDROOMTransId CCBKGTCExec::EDROOM_SUB_Top_0::EDROOMIArrival()
 {
 
 	TEDROOMTransId edroomCurrentTrans;
@@ -331,7 +241,7 @@ TEDROOMTransId CCHK_FDIRMng::EDROOM_SUB_Top_0::EDROOMIArrival()
 
 
 
-TEDROOMTransId CCHK_FDIRMng::EDROOM_SUB_Top_0::EDROOMReadyArrival()
+TEDROOMTransId CCBKGTCExec::EDROOM_SUB_Top_0::EDROOMReadyArrival()
 {
 
 	TEDROOMTransId edroomCurrentTrans;
@@ -346,27 +256,14 @@ TEDROOMTransId CCHK_FDIRMng::EDROOM_SUB_Top_0::EDROOMReadyArrival()
 		switch(Msg->signal)
 		{
 
-			case (SHK_FDIR_TC): 
+			case (SBKGTC): 
 
-				 if (*Msg->GetPInterface() == HK_FDIRCtrl)
+				 if (*Msg->GetPInterface() == BKGExecCtrl)
 				{
 
 					//Next transition is  ExecTC
 					edroomCurrentTrans.localId= ExecTC;
 					edroomCurrentTrans.distanceToContext = 0;
-					edroomValidMsg=true;
-				 }
-
-				break;
-
-			case (EDROOMSignalTimeout): 
-
-				 if (*Msg->GetPInterface() == HK_FDIRTimer)
-				{
-
-					//Next transition is  DoHK_FDIR
-					edroomCurrentTrans.localId = DoHK_FDIR;
-					edroomCurrentTrans.distanceToContext = 0 ;
 					edroomValidMsg=true;
 				 }
 

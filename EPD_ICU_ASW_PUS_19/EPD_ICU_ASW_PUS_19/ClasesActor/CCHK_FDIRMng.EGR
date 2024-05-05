@@ -153,9 +153,9 @@ GPendingEvAction()
 Ready
 DSubEst
 FTriggerEvAction();
-
  
-
+ 
+ 
 ;
 ;
 ;
@@ -170,9 +170,9 @@ true
 Ready
 DSubEst
 ;
-
  
-
+ 
+ 
 ;
 ;
 ;
@@ -183,7 +183,7 @@ DSubEst
 411 270 306 256 3
 [FinGraficoRama]
 [Transiciones]
-4
+3
 [Version Transicion]
 5
 Init
@@ -208,29 +208,6 @@ true
 [Version GraficoTransicion]
 0
 112 124 156 288 0
-[FinGraficoTransicion]
-DoHK_FDIRantiguo
-Ready
-OSubEst
-Ready
-DSubEst
-FDoHK_FDIR();
-[Trigger]
-HK_FDIRTimer
-EDROOMSignalTimeout
-true
- 
- 
- 
-;
-;
-FInvokeTxTMList();
-0
-;
-[GraficoTransicion]
-[Version GraficoTransicion]
-0
-174 233 288 233 4
 [FinGraficoTransicion]
 ExecTC
 Ready

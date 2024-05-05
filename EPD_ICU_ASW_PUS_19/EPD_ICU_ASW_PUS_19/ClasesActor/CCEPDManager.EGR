@@ -5,8 +5,8 @@
 0
 0
 [Modificado]
-1
-1
+0
+0
 0
 [Estructura]
 [Version Estructura]
@@ -111,7 +111,7 @@ CDTCHandler
 [Version Modulo]
 1
 icuasw_pus_services_iface
-
+ 
 v1
  
 1
@@ -501,6 +501,27 @@ SBKGTC
 CDTCHandler
 EDROOMprioNormal
 MsgDataHandler
+FGetEvAction()
+0
+0
+0
+0
+1
+ 
+6
+	
+		// Data access
+	
+	// ... =varEDROOMIRQsignal;
+CDEvAction & varEDROOMIRQSignal = *(CDEvAction *) Msg->data;
+PUSService19::GetEvActionTCHandler(varEDROOMIRQSignal, VCurrentTC); 
+[ServiceRequest]
+Msg->data
+EvActionQueue
+EDROOMIRQsignal
+CDEvAction
+ 
+MsgDataHandler
 FGetTC()
 0
 0
@@ -620,27 +641,6 @@ GToReboot()
  
 1
 return VCurrentTC.IsRebootTC();
-MsgDataHandler
-FGetEvAction()
-0
-0
-0
-0
-1
-
-6
-	
-		// Data access
-	
-	// ... =varEDROOMIRQsignal;
-CDEvAction & varEDROOMIRQSignal = *(CDEvAction *) Msg->data;
-PUSService19::GetEvActionTCHandler(varEDROOMIRQSignal, VCurrentTC); 
-[ServiceRequest]
-Msg->data
-EvActionQueue
-EDROOMIRQsignal
-CDEvAction
-
 [MaquinasSubEstados]
 0
 [FinMaquinasSubEstados]
