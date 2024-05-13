@@ -508,19 +508,14 @@ FGetEvAction()
 0
 1
  
-6
-	
-		// Data access
-	
-	// ... =varEDROOMIRQsignal;
-CDEvAction & varEDROOMIRQSignal = *(CDEvAction *) Msg->data;
+1
 PUSService19::GetEvActionTCHandler(varEDROOMIRQSignal, VCurrentTC); 
 [ServiceRequest]
 Msg->data
 EvActionQueue
 EDROOMIRQsignal
 CDEvAction
- 
+
 MsgDataHandler
 FGetTC()
 0
