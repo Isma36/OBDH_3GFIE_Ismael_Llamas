@@ -26,6 +26,8 @@
 #define TM_1_8_TC_19_1_EV_ACTION_REJECTED 		10
 #define TM_1_8_TC_19_X_EV_ACTION_NOT_DEFINED  	11
 #define TM_1_8_TC_2_X_DEVICE_NOT_VALID  		12
+#define TM_1_8_TC_2_X_DEVICE_ALREADY_ON			13
+#define TM_1_8_TC_2_X_DEVICE_ALREADY_OFF		14
 
 //SourceID TC Counters
 uint16_t SOLO_Mission_TimeLine_TC_Counter = 0;
@@ -455,5 +457,31 @@ void PUSService1::BuildTM_1_8_TC_2_X_DeviceNotValid(CDTCHandler &tcHandler,
 
 	tmList.AddTM(tmHandler.CloseTM());
 
+}
+
+void PUSService1::BuildTM_1_8_TC_2_X_DeviceAlreadyOn(CDTCHandler &tcHandler,
+		CDTMList &tmList,uint8_t devID){
+
+	CDTMHandler tmHandler(1, 8);
+
+	tmHandler.SetUInt16AppDataField(tcHandler.GetPacketID());
+	tmHandler.SetUInt16AppDataField(tcHandler.GetPackSeqCtrl());
+	tmHandler.SetUInt8AppDataField(TM_1_8_TC_2_X_DEVICE_ALREADY_ON);
+	tmHandler.SetUInt8AppDataField(devID);
+
+	tmList.AddTM(tmHandler.CloseTM());
+}
+
+void PUSService1::BuildTM_1_8_TC_2_X_DeviceAlreadyOff(CDTCHandler &tcHandler,
+		CDTMList &tmList,uint8_t devID){
+
+	CDTMHandler tmHandler(1, 8);
+
+	tmHandler.SetUInt16AppDataField(tcHandler.GetPacketID());
+	tmHandler.SetUInt16AppDataField(tcHandler.GetPackSeqCtrl());
+	tmHandler.SetUInt8AppDataField(TM_1_8_TC_2_X_DEVICE_ALREADY_OFF);
+	tmHandler.SetUInt8AppDataField(devID);
+
+	tmList.AddTM(tmHandler.CloseTM());
 }
 

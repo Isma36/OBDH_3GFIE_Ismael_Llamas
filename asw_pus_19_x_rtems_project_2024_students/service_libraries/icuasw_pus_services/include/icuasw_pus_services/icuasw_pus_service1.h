@@ -72,6 +72,12 @@ public:
   static void BuildTM_1_8_TC_2_X_DeviceNotValid(CDTCHandler &tcHandler,
   	  	  	  	  CDTMList &tmList,
   	  	  	  	  uint8_t devID);
+  static void BuildTM_1_8_TC_2_X_DeviceAlreadyOn(CDTCHandler &tcHandler,
+  	  	  	  	  CDTMList &tmList,
+  	  	  	  	  uint8_t devID);
+  static void BuildTM_1_8_TC_2_X_DeviceAlreadyOff(CDTCHandler &tcHandler,
+  	  	  	  	  CDTMList &tmList,
+  	  	  	  	  uint8_t devID);
 
 private:
 

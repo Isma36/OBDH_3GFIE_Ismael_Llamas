@@ -16,6 +16,17 @@
 #include "public/cdtchandler.h"
 #include "public/cdtmlist.h"
 
+#define DEVICE_MAX_ID 5
+
+enum CheckOnOff_t{
+  DeviceOff,DeviceOn
+};
+
+struct DeviceOnOffConfig_t{
+	CheckOnOff_t  prevstatus;
+	CheckOnOff_t  status;
+};
+
 class PUSService2{
 
  friend class PUSPrioTCExecutor;
@@ -24,6 +35,7 @@ protected:
   static void ExecTC( CDTCHandler &tcHandler, CDTMList &tmList);
 
 public:
+  static DeviceOnOffConfig_t DeviceOnOffConfig[DEVICE_MAX_ID];
   static void Exec2_1TC( CDTCHandler &tcHandler, CDTMList &tmList);
 };
 #endif
