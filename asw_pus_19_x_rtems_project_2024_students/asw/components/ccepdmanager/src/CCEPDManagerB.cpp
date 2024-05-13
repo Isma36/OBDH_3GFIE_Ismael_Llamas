@@ -123,6 +123,10 @@ void	CCEPDManager::EDROOM_CTX_Top_0::FGetEvAction()
 {
    //Handle Msg->data
   CDEvAction & varEDROOMIRQsignal = *(CDEvAction *)Msg->data;
+	
+		// Data access
+	
+	// ... =varEDROOMIRQsignal;
 PUSService19::GetEvActionTCHandler(varEDROOMIRQSignal, VCurrentTC); 
 
 }
