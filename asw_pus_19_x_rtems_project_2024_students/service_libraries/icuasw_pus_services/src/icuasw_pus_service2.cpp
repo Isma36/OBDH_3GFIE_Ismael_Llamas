@@ -51,7 +51,7 @@ void PUSService2::Exec2_1TC(CDTCHandler &tcHandler, CDTMList &tmList) {
 	uint8_t on_off = on_off_command >> 8;
 	uint8_t device_id = on_off_command & 0xFF;
 
-	if (device_id >= DEVICE_MAX_ID) { // Has cambiado > por >= para que sean 5 contando del 0-4
+	if (device_id > DEVICE_MAX_ID) { // Has cambiado > por >= para que sean 5 contando del 0-4
 
 		PUSService1::BuildTM_1_8_TC_2_X_DeviceNotValid(tcHandler, tmList,
 				device_id);

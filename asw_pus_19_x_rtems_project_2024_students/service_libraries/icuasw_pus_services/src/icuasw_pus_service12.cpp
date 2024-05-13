@@ -94,6 +94,8 @@ void PUSService12::Exec12_5TC(CDTCHandler &tcHandler, CDTMList &tmList) {
 
 				PUSService12::PARAMLimitDefinition[PMONID].highLimitRID =
 						highlimitRID;
+				// Faltaba la 1_7 para confirmar que all cool
+				PUSService1::BuildTM_1_7(tcHandler, tmList);
 
 			} else {
 

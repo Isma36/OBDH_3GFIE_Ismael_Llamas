@@ -21,10 +21,10 @@
 
 //#define FT_SOLO_EPD_ICU_Monitoring_0070
 
-#define FT_SOLO_EPD_DeviceControl_0080
+//#define FT_SOLO_EPD_DeviceControl_0080
 
 //TODO
-//#define FT_SOLO_EPD_Event_Action_0090
+#define FT_SOLO_EPD_Event_Action_0090
 //#define FT_SOLO_EPD_Event_Action_0100
 //#define FT_SOLO_EPD_Event_Action_0110
 
@@ -112,7 +112,7 @@ EmuGSS_TCProgram20_1 prog_FT_0060_step_1(FT_SOLO_EPD_ICU_SERV_20_0060_TIME_step1
 
 EmuGSS_TCProgram2_1 prog_FT_0080_step_0(UNITIME_AFTER_POWER_ON + 6,
 					"FT_SOLO_EPD_ICU_SERV_2_1_0080 step 0, Device 1 Off",
-					0, DeviceCommandOff);
+					0, DeviceCommandOn);
 
 EmuGSS_TCProgram2_1 prog_FT_0080_step_1(UNITIME_AFTER_POWER_ON + 6,
 					"FT_SOLO_EPD_ICU_SERV_2_1_0080 step 1, Device 2 On",
@@ -120,7 +120,7 @@ EmuGSS_TCProgram2_1 prog_FT_0080_step_1(UNITIME_AFTER_POWER_ON + 6,
 
 EmuGSS_TCProgram2_1 prog_FT_0080_step_2(UNITIME_AFTER_POWER_ON + 6,
 					"FT_SOLO_EPD_ICU_SERV_2_1_0080 step 1, Device Not Valid On",
-					6, DeviceCommandOn);
+					5, DeviceCommandOn);
 
 #endif
 
@@ -176,6 +176,9 @@ EmuGSS_TCProgram19_2 prog_FT_0090_step_9(FT_SOLO_EPD_Event_Action_0090_TIME_step
 		"FT_SOLO_EPD_ICU_SERV_19_2_0090 step 9, Delete event-action",
 		0x3002);
 
+EmuGSS_TCProgram20_3 prog_FT_0090_step_10(FT_SOLO_EPD_Event_Action_0090_TIME_step10,
+		"FT_SOLO_EPD_ICU_SERV_20_0090 step 10, Update PID 0 to 15",
+		0,15);
 
 
 #endif
