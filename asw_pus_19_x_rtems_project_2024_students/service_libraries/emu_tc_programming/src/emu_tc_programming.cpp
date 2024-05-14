@@ -24,9 +24,9 @@
 //#define FT_SOLO_EPD_DeviceControl_0080
 
 //TODO
-#define FT_SOLO_EPD_Event_Action_0090
+//#define FT_SOLO_EPD_Event_Action_0090
 //#define FT_SOLO_EPD_Event_Action_0100
-//#define FT_SOLO_EPD_Event_Action_0110
+#define FT_SOLO_EPD_Event_Action_0110
 
 #ifdef FT_SOLO_EPD_ICU_SERV_17_0010
 
@@ -140,9 +140,12 @@ EmuGSS_TCProgram2_1 prog_FT_0080_step_2(UNITIME_AFTER_POWER_ON + 6,
 EmuGSS_TCProgram20_3 prog_FT_0090_step_0(FT_SOLO_EPD_Event_Action_0090_TIME_step0,
 		"FT_SOLO_EPD_ICU_SERV_20_0090 step 0, Update PID 0 to 7",0,7);
 
+EmuGSS_TCProgram5_5 prog_FT_0090_step_01(FT_SOLO_EPD_Event_Action_0090_TIME_step0,
+		"FT_SOLO_EPD_ICU_SERV_20_0090 step 01, Enable events 0x4001",0x4001);
+
 EmuGSS_TCProgram12_5 prog_FT_0090_step_1(FT_SOLO_EPD_Event_Action_0090_TIME_step1,
 		"FT_SOLO_EPD_ICU_SERV_12_5_0090 step 1, Define Monitoring PID 0", //PMONID = 0
-		0,0,1,5,0x3001,10,0x3002); // Se evalua cada 5 y tiene limites 5-10
+		0,0,1,5,0x4001,10,0x4002); // Se evalua cada 5 y tiene limites 5-10
 
 EmuGSS_TCProgram12_1 prog_FT_0090_step_2(FT_SOLO_EPD_Event_Action_0090_TIME_step2,
 		"FT_SOLO_EPD_ICU_SERV_12_1_0090 step 2, Enable Monitoring PID 0",
@@ -150,31 +153,31 @@ EmuGSS_TCProgram12_1 prog_FT_0090_step_2(FT_SOLO_EPD_Event_Action_0090_TIME_step
 
 EmuGSS_TCProgram19_1_Action_2_1 prog_FT_0090_step_3(FT_SOLO_EPD_Event_Action_0090_TIME_step3,
 		"FT_SOLO_EPD_ICU_SERV_19_1_Action_2_1_0090 step 3, Define event-action",
-		0x3002,0,DeviceCommandOn);
+		0x4002,0,DeviceCommandOn);
 
 EmuGSS_TCProgram19_4 prog_FT_0090_step_4(FT_SOLO_EPD_Event_Action_0090_TIME_step4,
-		"FT_SOLO_EPD_ICU_SERV_19_4_0090 step 4, Define event-action",
-		0x3002);
+		"FT_SOLO_EPD_ICU_SERV_19_4_0090 step 4, Enable event-action",
+		0x4002);
 
 EmuGSS_TCProgram20_3 prog_FT_0090_step_5(FT_SOLO_EPD_Event_Action_0090_TIME_step5,
 		"FT_SOLO_EPD_ICU_SERV_20_0090 step 5, Update PID 0 to 15",
 		0,15);
 
 EmuGSS_TCProgram19_5 prog_FT_0090_step_6(FT_SOLO_EPD_Event_Action_0090_TIME_step6,
-		"FT_SOLO_EPD_ICU_SERV_19_5_0090 step 6, Define event-action",
-		0x3002);
+		"FT_SOLO_EPD_ICU_SERV_19_5_0090 step 6, Disable event-action",
+		0x4002);
 
 EmuGSS_TCProgram20_3 prog_FT_0090_step_7(FT_SOLO_EPD_Event_Action_0090_TIME_step7,
 		"FT_SOLO_EPD_ICU_SERV_20_0090 step 7, Update PID 0 to 15",
 		0,15);
 
 EmuGSS_TCProgram19_4 prog_FT_0090_step_8(FT_SOLO_EPD_Event_Action_0090_TIME_step8,
-		"FT_SOLO_EPD_ICU_SERV_19_4_0090 step 8, Define event-action",
-		0x3002);
+		"FT_SOLO_EPD_ICU_SERV_19_4_0090 step 8, Enable event-action",
+		0x4002);
 
 EmuGSS_TCProgram19_2 prog_FT_0090_step_9(FT_SOLO_EPD_Event_Action_0090_TIME_step9,
 		"FT_SOLO_EPD_ICU_SERV_19_2_0090 step 9, Delete event-action",
-		0x3002);
+		0x4002);
 
 EmuGSS_TCProgram20_3 prog_FT_0090_step_10(FT_SOLO_EPD_Event_Action_0090_TIME_step10,
 		"FT_SOLO_EPD_ICU_SERV_20_0090 step 10, Update PID 0 to 15",
@@ -183,14 +186,117 @@ EmuGSS_TCProgram20_3 prog_FT_0090_step_10(FT_SOLO_EPD_Event_Action_0090_TIME_ste
 
 #endif
 
-#ifdef FT_SOLO_EPD_Event_Action_0100
+#ifdef FT_SOLO_EPD_Event_Action_0100 // Prueba para borrar la event-action
 
+#define FT_SOLO_EPD_Event_Action_0100_TIME_step0 (UNITIME_AFTER_POWER_ON + 5)
+#define FT_SOLO_EPD_Event_Action_0100_TIME_step1 (UNITIME_AFTER_POWER_ON + 8)
+#define FT_SOLO_EPD_Event_Action_0100_TIME_step2 (UNITIME_AFTER_POWER_ON + 11)
+#define FT_SOLO_EPD_Event_Action_0100_TIME_step3 (UNITIME_AFTER_POWER_ON + 14)
+#define FT_SOLO_EPD_Event_Action_0100_TIME_step4 (UNITIME_AFTER_POWER_ON + 17)
+#define FT_SOLO_EPD_Event_Action_0100_TIME_step5 (UNITIME_AFTER_POWER_ON + 20)
+#define FT_SOLO_EPD_Event_Action_0100_TIME_step6 (UNITIME_AFTER_POWER_ON + 23)
+#define FT_SOLO_EPD_Event_Action_0100_TIME_step7 (UNITIME_AFTER_POWER_ON + 26)
+#define FT_SOLO_EPD_Event_Action_0100_TIME_step8 (UNITIME_AFTER_POWER_ON + 29)
+#define FT_SOLO_EPD_Event_Action_0100_TIME_step9 (UNITIME_AFTER_POWER_ON + 32)
+#define FT_SOLO_EPD_Event_Action_0100_TIME_step10 (UNITIME_AFTER_POWER_ON + 35)
+
+EmuGSS_TCProgram20_3 prog_FT_0100_step_0(FT_SOLO_EPD_Event_Action_0100_TIME_step0,
+		"FT_SOLO_EPD_ICU_SERV_20_0100 step 0, Update PID 0 to 7",0,7);
+
+EmuGSS_TCProgram5_5 prog_FT_0100_step_01(FT_SOLO_EPD_Event_Action_0100_TIME_step0,
+		"FT_SOLO_EPD_ICU_SERV_20_0100 step 01, Enable events 0x4001",0x4001);
+
+EmuGSS_TCProgram12_5 prog_FT_0100_step_1(FT_SOLO_EPD_Event_Action_0100_TIME_step1,
+		"FT_SOLO_EPD_ICU_SERV_12_5_0100 step 1, Define Monitoring PID 0", //PMONID = 0
+		0,0,1,5,0x4001,10,0x4002); // Se evalua cada 5 y tiene limites 5-10
+
+EmuGSS_TCProgram12_1 prog_FT_0100_step_2(FT_SOLO_EPD_Event_Action_0100_TIME_step2,
+		"FT_SOLO_EPD_ICU_SERV_12_1_0100 step 2, Enable Monitoring PID 0",
+		0); // Habilito el monitoring
+
+EmuGSS_TCProgram19_1_Action_2_1 prog_FT_0100_step_3(FT_SOLO_EPD_Event_Action_0100_TIME_step3,
+		"FT_SOLO_EPD_ICU_SERV_19_1_Action_2_1_0100 step 3, Define event-action",
+		0x4002,0,DeviceCommandOn);
+
+EmuGSS_TCProgram19_4 prog_FT_0100_step_4(FT_SOLO_EPD_Event_Action_0100_TIME_step4,
+		"FT_SOLO_EPD_ICU_SERV_19_4_0100 step 4, Enable event-action",
+		0x4002);
+
+EmuGSS_TCProgram20_3 prog_FT_0100_step_5(FT_SOLO_EPD_Event_Action_0100_TIME_step5,
+		"FT_SOLO_EPD_ICU_SERV_20_0100_step 5, Update PID 0 to 15",
+		0,15);
+
+EmuGSS_TCProgram19_5 prog_FT_0100_step_6(FT_SOLO_EPD_Event_Action_0100_TIME_step6,
+		"FT_SOLO_EPD_ICU_SERV_19_5_0100_step 6, Disable event-action",
+		0x4002);
+
+EmuGSS_TCProgram5_6 prog_FT_0100_step_7(FT_SOLO_EPD_Event_Action_0100_TIME_step7,
+		"FT_SOLO_EPD_ICU_SERV_20_0100 step 7, Disable events 0x4001",0x4001);
+
+EmuGSS_TCProgram19_2 prog_FT_0100_step_8(FT_SOLO_EPD_Event_Action_0100_TIME_step8,
+		"FT_SOLO_EPD_ICU_SERV_19_2_0100 step 7, Delete event-action",
+		0x4002);
 
 
 #endif
 
 #ifdef FT_SOLO_EPD_Event_Action_0110
 
+#define FT_SOLO_EPD_Event_Action_0110_TIME_step0 (UNITIME_AFTER_POWER_ON + 5)
+#define FT_SOLO_EPD_Event_Action_0110_TIME_step1 (UNITIME_AFTER_POWER_ON + 8)
+#define FT_SOLO_EPD_Event_Action_0110_TIME_step2 (UNITIME_AFTER_POWER_ON + 11)
+#define FT_SOLO_EPD_Event_Action_0110_TIME_step3 (UNITIME_AFTER_POWER_ON + 14)
+#define FT_SOLO_EPD_Event_Action_0110_TIME_step4 (UNITIME_AFTER_POWER_ON + 17)
+#define FT_SOLO_EPD_Event_Action_0110_TIME_step5 (UNITIME_AFTER_POWER_ON + 20)
+#define FT_SOLO_EPD_Event_Action_0110_TIME_step6 (UNITIME_AFTER_POWER_ON + 23)
+#define FT_SOLO_EPD_Event_Action_0110_TIME_step7 (UNITIME_AFTER_POWER_ON + 26)
+#define FT_SOLO_EPD_Event_Action_0110_TIME_step8 (UNITIME_AFTER_POWER_ON + 29)
+#define FT_SOLO_EPD_Event_Action_0110_TIME_step9 (UNITIME_AFTER_POWER_ON + 32)
+#define FT_SOLO_EPD_Event_Action_0110_TIME_step10 (UNITIME_AFTER_POWER_ON + 35)
+
+EmuGSS_TCProgram20_3 prog_FT_0110_step_0(FT_SOLO_EPD_Event_Action_0110_TIME_step0,
+		"FT_SOLO_EPD_ICU_SERV_20_0110 step 0, Update PID 0 to 7",0,7);
+
+EmuGSS_TCProgram5_5 prog_FT_0110_step_01(FT_SOLO_EPD_Event_Action_0110_TIME_step0,
+		"FT_SOLO_EPD_ICU_SERV_20_0110 step 01, Enable events 0x4001",0x4001);
+
+EmuGSS_TCProgram12_5 prog_FT_0110_step_1(FT_SOLO_EPD_Event_Action_0110_TIME_step1,
+		"FT_SOLO_EPD_ICU_SERV_12_5_0110 step 1, Define Monitoring PID 0", //PMONID = 0
+		0,0,1,5,0x4001,10,0x4002); // Se evalua cada 5 y tiene limites 5-10
+
+EmuGSS_TCProgram12_1 prog_FT_0110_step_2(FT_SOLO_EPD_Event_Action_0110_TIME_step2,
+		"FT_SOLO_EPD_ICU_SERV_12_1_0110 step 2, Enable Monitoring PID 0",
+		0); // Habilito el monitoring
+
+EmuGSS_TCProgram19_1_Action_2_1 prog_FT_0110_step_3(FT_SOLO_EPD_Event_Action_0110_TIME_step3,
+		"FT_SOLO_EPD_ICU_SERV_19_1_Action_2_1_0110 step 3, Define event-action",
+		0x4002,0,DeviceCommandOn);
+
+EmuGSS_TCProgram19_4 prog_FT_0110_step_4(FT_SOLO_EPD_Event_Action_0110_TIME_step4,
+		"FT_SOLO_EPD_ICU_SERV_19_4_0110 step 4, Enable event-action",
+		0x4002);
+
+EmuGSS_TCProgram20_3 prog_FT_0110_step_5(FT_SOLO_EPD_Event_Action_0110_TIME_step5,
+		"FT_SOLO_EPD_ICU_SERV_20_0110_step 5, Update PID 0 to 15",
+		0,15);
+
+EmuGSS_TCProgram19_5 prog_FT_0110_step_6(FT_SOLO_EPD_Event_Action_0110_TIME_step6,
+		"FT_SOLO_EPD_ICU_SERV_19_5_0110_step 6, Disable event-action",
+		0x4002);
+
+EmuGSS_TCProgram5_6 prog_FT_0110_step_7(FT_SOLO_EPD_Event_Action_0110_TIME_step7,
+		"FT_SOLO_EPD_ICU_SERV_20_0110 step 7, Disable events 0x4001",0x4001);
+
+//EmuGSS_TCProgram19_2 prog_FT_0110_step_8(FT_SOLO_EPD_Event_Action_0110_TIME_step8,
+//		"FT_SOLO_EPD_ICU_SERV_19_2_0110 step 8, Delete event-action",
+//		0x4002);
+
+EmuGSS_TCProgram5_5 prog_FT_0110_step_8(FT_SOLO_EPD_Event_Action_0110_TIME_step8,
+		"FT_SOLO_EPD_ICU_SERV_20_0110 step 8, Enable events 0x4001",0x4001);
+
+EmuGSS_TCProgram19_4 prog_FT_0110_step_9(FT_SOLO_EPD_Event_Action_0110_TIME_step9,
+		"FT_SOLO_EPD_ICU_SERV_19_4_0110 step 9, Enable event-action",
+		0x4002);
 
 
 #endif
