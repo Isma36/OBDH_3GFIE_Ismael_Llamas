@@ -1,0 +1,35 @@
+[Version Protocolo]
+9
+0
+1
+0
+10
+1
+EDROOMprioVeryHigh
+0
+1
+1
+0
+2
+EDROOMIRQ10SendMsgToCmp
+ =PUSService19::ExtractEvActionFromQueue(EDROOMVarIRQ10);
+1
+0
+10
+0
+1
+1
+[Version Mensaje]
+1
+[Version Senal]
+0
+EDROOMIRQsignal
+[Version Dato]
+1
+CDEvAction
+C:\Users\ismae\OneDrive - Universidad de Alcala\Escritorio\UNI\GitHub\OBDH_3GFIE_Ismael_Llamas\EPD_ICU_ASW_PUS_19\EPD_ICU_ASW_PUS_19\
+es.uah.aut.srg.edroom.mclev.data_sai.cdevaction
+v1
+0
+0
+0
