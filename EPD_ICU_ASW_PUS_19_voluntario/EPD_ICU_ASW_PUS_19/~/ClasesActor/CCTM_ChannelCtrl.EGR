@@ -5,8 +5,8 @@
 0
 0
 [Modificado]
-0
-0
+1
+1
 0
 [Estructura]
 [Version Estructura]
@@ -20,7 +20,7 @@ NULL
 1
 [FinStack]
 [Puertos]
-3
+4
 [Version Puerto]
 0
 TMChannelCtrl
@@ -52,6 +52,17 @@ TMChannelCtrl3
 [Version Grafico Puerto]
 0
 82
+4
+CPTMChannelCtrl
+[Version Puerto]
+0
+TMChannelCtrl4
+0
+1
+0
+[Version Grafico Puerto]
+0
+60
 4
 CPTMChannelCtrl
 [FinPuertos]

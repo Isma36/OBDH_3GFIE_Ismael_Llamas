@@ -20,7 +20,7 @@ NULL
 1
 [FinStack]
 [Puertos]
-5
+7
 [Version Puerto]
 0
 TMChannelCtrl
@@ -73,9 +73,31 @@ EvActionQueue
 1
 [Version Grafico Puerto]
 0
-31
-48
+28
+37
 CPEvActionQueue
+[Version Puerto]
+0
+BKGExecCtrl2
+1
+1
+0
+[Version Grafico Puerto]
+0
+66
+93
+CPBKGExecCtrl
+[Version Puerto]
+0
+Timer
+0
+1
+1
+[Version Grafico Puerto]
+0
+65
+58
+EDROOMTimingSAP
 [FinPuertos]
 [ActoresComponente]
 0
@@ -84,7 +106,7 @@ CPEvActionQueue
 0
 [FinUniones]
 [NumTimers]
-0
+2
 [FinNumTimers]
 [NumMsgDef]
 10
@@ -125,7 +147,7 @@ v1
 1
 1
 [Eventos]
-2
+3
 [Event]
 [Version]
 1
@@ -136,6 +158,11 @@ External
 1
 EvIRQEvActionQueue
 External
+[Event]
+[Version]
+1
+EvTimerTimer
+Timer
 [Maquina de Estados]
 [Version Maquina de Estados]
 1
@@ -330,7 +357,7 @@ FFwdToBKGTCExec();
 553 351 322 326 3
 [FinGraficoRama]
 [Transiciones]
-3
+6
 [Version Transicion]
 5
 Init
@@ -402,8 +429,77 @@ DPEleccion
 0
 558 565 553 351 3
 [FinGraficoTransicion]
+NewEvAction
+Ready
+OSubEst
+ValidTC
+DSubEst
+;
+[Trigger]
+EvActionQueue
+EDROOMIRQsignal
+true
+ 
+ 
+ 
+FGetEvAction();
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+303 461 483 576 0
+[FinGraficoTransicion]
+TCCounterReset
+Ready
+OSubEst
+Ready
+DSubEst
+FResetTCCounter();
+[Trigger]
+Timer
+EDROOMSignalTimeout
+true
+ 
+ 
+ 
+;
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+193 146 293 146 4
+[FinGraficoTransicion]
+ExcessTC
+Ready
+OSubEst
+ValidTC
+DSubEst
+;
+[Trigger]
+ 
+ 
+true
+ 
+ 
+ 
+;
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+322 444 507 565 0
+[FinGraficoTransicion]
 [VariablesConstantes]
-3
+5
 [Version VariYConst]
 0
 VCurrentEvList
@@ -425,8 +521,22 @@ CDTMList
 
 Variable
 0
+[Version VariYConst]
+0
+VTCCounter
+TEDROOMInt16
+0
+Variable
+0
+[Version VariYConst]
+0
+VNextReset
+Pr_Time
+
+Variable
+0
 [Metodos]
-12
+14
 [Version Metodos]
 21
 BasicAction
@@ -477,6 +587,26 @@ BKGExecCtrl
 SBKGTC
 CDTCHandler
 EDROOMprioNormal
+MsgDataHandler
+FGetEvAction()
+0
+0
+0
+0
+1
+ 
+5
+	
+		// Data access
+	
+	// ... =varEDROOMIRQsignal;
+PUSService19::GetEvActionTCHandler(varEDROOMIRQsignal, VCurrentTC); 
+[ServiceRequest]
+Msg->data
+EvActionQueue
+EDROOMIRQsignal
+CDEvAction
+ 
 MsgDataHandler
 FGetTC()
 0
@@ -597,6 +727,18 @@ GToReboot()
  
 1
 return VCurrentTC.IsRebootTC();
+BasicAction
+FResetTCCounter()
+0
+0
+0
+0
+1
+
+3
+VNextReset+= Pr_Time(1,0); // Add X sec + Y microsec 
+time=VNextTimeout; 
+VTCCounter = 0;
 [MaquinasSubEstados]
 0
 [FinMaquinasSubEstados]

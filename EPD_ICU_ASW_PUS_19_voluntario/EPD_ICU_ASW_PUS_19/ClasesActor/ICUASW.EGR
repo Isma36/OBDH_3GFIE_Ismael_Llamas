@@ -5,8 +5,8 @@
 0
 0
 [Modificado]
-0
-0
+1
+1
 2
 [Estructura]
 [Version Estructura]
@@ -34,7 +34,7 @@ Timer
 EDROOMTimingSAP
 [FinPuertos]
 [ActoresComponente]
-4
+5
 [Version Actor Componente]
 2
 EPDManager
@@ -81,9 +81,9 @@ EDROOMprioNormal
  
 [Version Grafico Actor Componente]
 0
-32.6172
+32.4219
 44.1479
-49.4141
+49.2188
 59.9589
 CCHK_FDIRMng
 [Version Actor Componente]
@@ -103,9 +103,26 @@ EDROOMprioNormal
 88.2812
 59.7536
 CCBKGTCExec
+[Version Actor Componente]
+2
+ExcessTCExec
+1
+0
+0
+10
+7
+EDROOMprioNormal
+
+[Version Grafico Actor Componente]
+0
+52.9297
+41.0678
+70.5078
+63.655
+CCExcessTCExec
 [FinActoresComponente]
 [Uniones]
-5
+7
 [Version Union]
 0
 Union
@@ -145,6 +162,22 @@ Union5
 TMChannelCtrl
 TMChannelCtrl3
 BKGTCExec
+TM_ChannelCtrl
+[Version Union]
+0
+Union6
+1
+BKGExecCtrl2
+BKGExecCtrl
+EPDManager
+ExcessTCExec
+[Version Union]
+0
+Union7
+1
+TMChannelCtrl
+TMChannelCtrl4
+ExcessTCExec
 TM_ChannelCtrl
 [FinUniones]
 [NumTimers]

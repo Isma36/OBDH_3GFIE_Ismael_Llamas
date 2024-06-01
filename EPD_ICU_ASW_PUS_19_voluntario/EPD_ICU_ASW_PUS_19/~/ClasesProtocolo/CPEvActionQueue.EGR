@@ -17,7 +17,7 @@ EDROOMIRQ10SendMsgToCmp
 0
 10
 0
-1
+0
 1
 [Version Mensaje]
 1
@@ -27,7 +27,7 @@ EDROOMIRQsignal
 [Version Dato]
 1
 CDEvAction
-C:\Users\ismae\OneDrive - Universidad de Alcala\Escritorio\UNI\GitHub\OBDH_3GFIE_Ismael_Llamas\EPD_ICU_ASW_PUS_19\EPD_ICU_ASW_PUS_19\
+C:\Users\ismae\OneDrive - Universidad de Alcala\Escritorio\UNI\GitHub\OBDH_3GFIE_Ismael_Llamas\EPD_ICU_ASW_PUS_19_voluntario\EPD_ICU_ASW_PUS_19\
 es.uah.aut.srg.edroom.mclev.data_sai.cdevaction
 v1
 0

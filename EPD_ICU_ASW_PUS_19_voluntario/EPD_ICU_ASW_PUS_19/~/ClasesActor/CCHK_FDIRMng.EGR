@@ -183,7 +183,7 @@ DSubEst
 411 270 306 256 3
 [FinGraficoRama]
 [Transiciones]
-4
+3
 [Version Transicion]
 5
 Init
@@ -208,29 +208,6 @@ true
 [Version GraficoTransicion]
 0
 112 124 156 288 0
-[FinGraficoTransicion]
-DoHK_FDIRantiguo
-Ready
-OSubEst
-Ready
-DSubEst
-FDoHK_FDIR();
-[Trigger]
-HK_FDIRTimer
-EDROOMSignalTimeout
-true
- 
- 
- 
-;
-;
-FInvokeTxTMList();
-0
-;
-[GraficoTransicion]
-[Version GraficoTransicion]
-0
-174 233 288 233 4
 [FinGraficoTransicion]
 ExecTC
 Ready
@@ -307,7 +284,7 @@ FDoHK_FDIR()
 1
  
 7
- 
+CDEventList eventList;
 VNextTimeout+= Pr_Time(1,0); // Add X sec + Y microsec 
 time=VNextTimeout; 
 PUSService3::DoHK(VCurrentTMList);	
@@ -318,7 +295,7 @@ PUSService19::ManageEventActions(eventList);
 InformAt
 HK_FDIRTimer
 EDROOMSignalTimeout
-CDTCHandler
+
 EDROOMprioNormal
 MsgDataHandler
 FExecHK_FDIR_TC()

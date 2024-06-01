@@ -5,8 +5,8 @@
 0
 0
 [Modificado]
-0
-0
+1
+1
 0
 [Estructura]
 [Version Estructura]
@@ -295,7 +295,7 @@ PUSService19::ManageEventActions(eventList);
 InformAt
 HK_FDIRTimer
 EDROOMSignalTimeout
- 
+
 EDROOMprioNormal
 MsgDataHandler
 FExecHK_FDIR_TC()

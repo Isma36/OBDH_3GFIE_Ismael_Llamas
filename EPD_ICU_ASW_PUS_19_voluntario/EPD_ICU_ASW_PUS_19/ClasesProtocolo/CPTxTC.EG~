@@ -15,17 +15,23 @@ EDROOMIRQ18BottomHalfSignal=EDROOMVarIRQ18.HandleIRQ();
 1
 1
 0
-5
+11
 #ifndef NEXYS_PLATFORM 
  
-SC_Channel_GetNextTC(&EDROOMVarIRQ18);
+if (tc_counter < 8) {
+    // Procesar TC como siempre
+  SC_CHANNEL_GETNEXTTC(&EDROOMVARIRQ18);
+} else {
+    // Enviar TC a la cola nueva que hemos creado previamente
+  rtems_message_queue_send(queue_id, &tc_data, sizeof(tc_data));
+}
  
 #endif
 1
 0
 10
 0
-0
+1
 1
 [Version Mensaje]
 1
